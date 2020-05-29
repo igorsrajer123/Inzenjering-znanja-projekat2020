@@ -2,7 +2,7 @@
 
 %asthma
 medication(asthma,albuterol,100).
-medication(asthma,prednisone,82).
+medication(asthma,prednisone,83).
 medication(asthma,montelukast,78).
 medication(asthma,ipratropium,68).
 medication(asthma,levalbuterol,51).
