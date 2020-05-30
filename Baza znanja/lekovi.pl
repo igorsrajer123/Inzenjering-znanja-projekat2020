@@ -94,37 +94,37 @@ symptom_diagnose(coryza,chronic_obstructive_pulmonary_disease,2).
 %procedure vezane za razlicita pulmoloska oboljenja
 
 %asthma
-disease_procedure(asthma,plain_x_ray).
-disease_procedure(asthma,nebulizer_therapy).
-disease_procedure(asthma,arterial_blood_gases).
-disease_procedure(asthma,influenzavirus_antibody_assay).
+disease_procedure(asthma,plain_x_ray,100).
+disease_procedure(asthma,nebulizer_therapy,94).
+disease_procedure(asthma,arterial_blood_gases,46).
+disease_procedure(asthma,influenzavirus_antibody_assay,31).
 
 %pneumonia
-disease_procedure(pneumonia,radiographic_imaging_procedure).
-disease_procedure(pneumonia,plain_x_ray).
-disease_procedure(pneumonia,hematologic_tests).
-disease_procedure(pneumonia,complete_blood_count).
-disease_procedure(pneumonia,intravenous_fluid_replacement).
-disease_procedure(pneumonia,kidney_function_tests).
-disease_procedure(pneumonia,electrolytes_panel).
+disease_procedure(pneumonia,radiographic_imaging_procedure,100).
+disease_procedure(pneumonia,plain_x_ray,94).
+disease_procedure(pneumonia,hematologic_tests,79).
+disease_procedure(pneumonia,complete_blood_count,72).
+disease_procedure(pneumonia,intravenous_fluid_replacement,32).
+disease_procedure(pneumonia,kidney_function_tests,21).
+disease_procedure(pneumonia,electrolytes_panel,11).
 
 %chronic obstructive pulmonary disease
-disease_procedure(chronic_obstructive_pulmonary_disease,radiographic_imaging_procedure).
-disease_procedure(chronic_obstructive_pulmonary_disease,plain_x_ray).
-disease_procedure(chronic_obstructive_pulmonary_disease,hematologic_tests).
-disease_procedure(chronic_obstructive_pulmonary_disease,complete_blood_count).
-disease_procedure(chronic_obstructive_pulmonary_disease,glucose_measurement).
-disease_procedure(chronic_obstructive_pulmonary_disease,kidney_function_tests).
-disease_procedure(chronic_obstructive_pulmonary_disease,electrolytes_panel).
+disease_procedure(chronic_obstructive_pulmonary_disease,radiographic_imaging_procedure,100).
+disease_procedure(chronic_obstructive_pulmonary_disease,plain_x_ray,93).
+disease_procedure(chronic_obstructive_pulmonary_disease,hematologic_tests,90).
+disease_procedure(chronic_obstructive_pulmonary_disease,complete_blood_count,67).
+disease_procedure(chronic_obstructive_pulmonary_disease,glucose_measurement,22).
+disease_procedure(chronic_obstructive_pulmonary_disease,kidney_function_tests,15).
+disease_procedure(chronic_obstructive_pulmonary_disease,electrolytes_panel,14).
 
 %acute bronchitis
-disease_procedure(acute_bronchitis,radiographic_imaging_procedure).
-disease_procedure(acute_bronchitis,plain_x_ray).
-disease_procedure(acute_bronchitis,nebulizer_therapy).
-disease_procedure(acute_bronchitis,kidney_function_tests).
-disease_procedure(acute_bronchitis,cardiac_enzymes_measurement).
-disease_procedure(acute_bronchitis,cardiac_monitoring).
-disease_procedure(acute_bronchitis,blood_culture).
+disease_procedure(acute_bronchitis,radiographic_imaging_procedure,100).
+disease_procedure(acute_bronchitis,plain_x_ray,98).
+disease_procedure(acute_bronchitis,nebulizer_therapy,61).
+disease_procedure(acute_bronchitis,kidney_function_tests,57).
+disease_procedure(acute_bronchitis,cardiac_enzymes_measurement,41).
+disease_procedure(acute_bronchitis,cardiac_monitoring,23).
+disease_procedure(acute_bronchitis,blood_culture,8).
 
 %lista lekova za unetu bolest
 medications(B,L) :- findall(A,medication(B,A,V),L).
