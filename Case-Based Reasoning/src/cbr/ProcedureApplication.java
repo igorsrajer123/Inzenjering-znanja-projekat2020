@@ -1,7 +1,8 @@
 package cbr;
 
 import java.util.Collection;
-import model.Symptom;
+import model.Procedure;
+import connector.ProcedureConnector;
 import ucm.gaia.jcolibri.casebase.LinealCaseBase;
 import ucm.gaia.jcolibri.cbraplications.StandardCBRApplication;
 import ucm.gaia.jcolibri.cbrcore.Attribute;
@@ -17,27 +18,26 @@ import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.global.Average;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.EqualsStringIgnoreCase;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Interval;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
-import connector.SymptomConnector;
 
-public class SymptomApplication implements StandardCBRApplication{
+public class ProcedureApplication implements StandardCBRApplication{
 
-	Connector _connector;  /** Connector object */
+Connector _connector;  /** Connector object */
 	
 	CBRCaseBase _caseBase;  /** CaseBase object */
 
 	NNConfig simConfig;  /** KNN configuration */
 	
 	public void configure() throws ExecutionException {
-		_connector =  new SymptomConnector();
+		_connector =  new ProcedureConnector();
 		
 		_caseBase = new LinealCaseBase();  // Create a Lineal case base for in-memory organization
 		
 		simConfig = new NNConfig(); // KNN configuration
 		simConfig.setDescriptionSimFunction(new Average());  // global similarity function = average
 	
-		simConfig.addMapping(new Attribute("diagnose", Symptom.class), new EqualsStringIgnoreCase());
-		simConfig.addMapping(new Attribute("name", Symptom.class), new EqualsStringIgnoreCase());
-		simConfig.addMapping(new Attribute("percentOfDiagnose", Symptom.class), new Interval(10));
+		simConfig.addMapping(new Attribute("disease", Procedure.class), new EqualsStringIgnoreCase());
+		simConfig.addMapping(new Attribute("name", Procedure.class), new EqualsStringIgnoreCase());
+		simConfig.addMapping(new Attribute("percentOfUse", Procedure.class), new Interval(20));
 	}
 	
 	public void cycle(CBRQuery query) throws ExecutionException {
@@ -61,7 +61,7 @@ public class SymptomApplication implements StandardCBRApplication{
 	}
 	
 	public static void main(String[] args) {
-		StandardCBRApplication recommender = new SymptomApplication();
+		StandardCBRApplication recommender = new ProcedureApplication();
 		
 		try{
 			recommender.configure();
@@ -70,14 +70,14 @@ public class SymptomApplication implements StandardCBRApplication{
 
 			CBRQuery query = new CBRQuery();
 			
-			Symptom symptom = new Symptom();
+			Procedure procedure = new Procedure();
 			
 			//symptom.setDiagnose(Arrays.asList("asthma"));
-			symptom.setName("fever");
-			symptom.setDiagnose("asthma");
-			symptom.setPercentOfDiagnose(15);
+			procedure.setName("plain_x_ray");
+			procedure.setDisease("asthma");
+			procedure.setPercentOfUse(95);
 			
-			query.setDescription(symptom);
+			query.setDescription(procedure);
 
 			recommender.cycle(query);
 

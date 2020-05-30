@@ -7,20 +7,21 @@ import java.util.Collection;
 import java.util.LinkedList;
 
 import model.Medication;
+import model.Procedure;
 import ucm.gaia.jcolibri.cbrcore.CBRCase;
 import ucm.gaia.jcolibri.cbrcore.CaseBaseFilter;
 import ucm.gaia.jcolibri.cbrcore.Connector;
 import ucm.gaia.jcolibri.exception.InitializingException;
 import ucm.gaia.jcolibri.util.FileIO;
 
-public class MedicationConnector implements Connector{
+public class ProcedureConnector implements Connector{
 
 	@Override
 	public Collection<CBRCase> retrieveAllCases() {
 		LinkedList<CBRCase> cases = new LinkedList<CBRCase>();
 		
 		try{
-			BufferedReader br = new BufferedReader(new InputStreamReader(FileIO.openFile("data/medications.csv")));
+			BufferedReader br = new BufferedReader(new InputStreamReader(FileIO.openFile("data/procedures.csv")));
 			
 			if (br == null)
 				throw new Exception("Error opening file");
@@ -33,14 +34,14 @@ public class MedicationConnector implements Connector{
 
 				CBRCase cbrCase = new CBRCase();
 				
-				//parsiranje medications.csv fajla
-				Medication medication = new Medication();
+				//parsiranje procedures.csv fajla
+				Procedure procedure = new Procedure();
 				
-				medication.setDisease(values[0]);			
-				medication.setName(values[1]);
-				medication.setPercentOfUse(Integer.parseInt(values[2]));
+				procedure.setDisease(values[0]);
+				procedure.setName(values[1]);
+				procedure.setPercentOfUse(Integer.parseInt(values[2]));
 				
-				cbrCase.setDescription(medication);
+				cbrCase.setDescription(procedure);
 				cases.add(cbrCase);				
 			}
 		}catch (Exception e) {

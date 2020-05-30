@@ -3,9 +3,7 @@ package cbr;
 import java.util.Collection;
 
 import model.Medication;
-import model.Symptom;
 import connector.MedicationConnector;
-import connector.SymptomConnector;
 import ucm.gaia.jcolibri.casebase.LinealCaseBase;
 import ucm.gaia.jcolibri.cbraplications.StandardCBRApplication;
 import ucm.gaia.jcolibri.cbrcore.Attribute;
