@@ -1,23 +1,22 @@
 package connector;
 
-import java.util.List;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import model.Symptom;
+import model.Disease;
+import model.Medication;
 import ucm.gaia.jcolibri.cbrcore.CBRCase;
 import ucm.gaia.jcolibri.cbrcore.CaseBaseFilter;
 import ucm.gaia.jcolibri.cbrcore.Connector;
 import ucm.gaia.jcolibri.exception.InitializingException;
 import ucm.gaia.jcolibri.util.FileIO;
 
-public class SymptomConnector implements Connector{
-	
+public class DiseaseConnector implements Connector{
+
 	@Override
 	public Collection<CBRCase> retrieveAllCases() {
 		LinkedList<CBRCase> cases = new LinkedList<CBRCase>();
@@ -36,14 +35,15 @@ public class SymptomConnector implements Connector{
 
 				CBRCase cbrCase = new CBRCase();
 				
-				//parsiranje simptomi.csv fajla
-				Symptom symptom = new Symptom();
+				//parsiranje podaci.csv fajla
+				Disease disease = new Disease();
 				
-				symptom.setName(values[3]);				
-				symptom.setDiagnose(values[4]);
-				//symptom.setDiagnose(Arrays.asList(dijagnoza.split(" ")));
+				disease.setDisease(values[4]);
+				disease.setAge(Integer.parseInt(values[2]));
+				//disease.setSymptoms(Arrays.asList(values[3]));
+				disease.setSymptom(values[3]);
 				
-				cbrCase.setDescription(symptom);
+				cbrCase.setDescription(disease);
 				cases.add(cbrCase);				
 			}
 		}catch (Exception e) {

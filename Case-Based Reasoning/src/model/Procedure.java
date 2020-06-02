@@ -7,13 +7,12 @@ public class Procedure implements CaseComponent{
 	
 	private String name;
 	private String disease;
-	private int percentOfUse;
 	
-	public Procedure(String name, String disease, int percentOfUse) {
+	
+	public Procedure(String name, String disease) {
 		super();
 		this.name = name;
 		this.disease = disease;
-		this.percentOfUse = percentOfUse;
 	}
 	
 	public Procedure() {
@@ -43,17 +42,9 @@ public class Procedure implements CaseComponent{
 		this.disease = disease;
 	}
 
-	public int getPercentOfUse() {
-		return percentOfUse;
-	}
-
-	public void setPercentOfUse(int percentOfUse) {
-		this.percentOfUse = percentOfUse;
-	}
-
 	@Override
 	public String toString() {
 		return "Procedure [name=" + name + ", disease=" + disease
-				+ ", percentOfUse=" + percentOfUse + "]";
+				+"]";
 	}	
 }

@@ -37,7 +37,6 @@ Connector _connector;  /** Connector object */
 	
 		simConfig.addMapping(new Attribute("disease", Procedure.class), new EqualsStringIgnoreCase());
 		simConfig.addMapping(new Attribute("name", Procedure.class), new EqualsStringIgnoreCase());
-		simConfig.addMapping(new Attribute("percentOfUse", Procedure.class), new Interval(20));
 	}
 	
 	public void cycle(CBRQuery query) throws ExecutionException {
@@ -55,9 +54,35 @@ Connector _connector;  /** Connector object */
 	public CBRCaseBase preCycle() throws ExecutionException {
 		_caseBase.init(_connector);
 		java.util.Collection<CBRCase> cases = _caseBase.getCases();
-		for (CBRCase c: cases)
-			System.out.println(c.getDescription());
+		//for (CBRCase c: cases)
+			//System.out.println(c.getDescription());
 		return _caseBase;
+	}
+	
+	public void runProcedureApp(String n, String d){
+		StandardCBRApplication recommender = new ProcedureApplication();
+		
+		try{
+			recommender.configure();
+
+			recommender.preCycle();
+
+			CBRQuery query = new CBRQuery();
+			
+			Procedure procedure = new Procedure();
+			
+			//symptom.setDiagnose(Arrays.asList("asthma"));
+			procedure.setName(n);
+			procedure.setDisease(d);
+			
+			query.setDescription(procedure);
+
+			recommender.cycle(query);
+
+			recommender.postCycle();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -73,9 +98,8 @@ Connector _connector;  /** Connector object */
 			Procedure procedure = new Procedure();
 			
 			//symptom.setDiagnose(Arrays.asList("asthma"));
-			procedure.setName("plain_x_ray");
+			procedure.setName("nebulizer therapy");
 			procedure.setDisease("asthma");
-			procedure.setPercentOfUse(95);
 			
 			query.setDescription(procedure);
 

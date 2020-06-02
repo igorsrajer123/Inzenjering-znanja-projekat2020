@@ -37,7 +37,6 @@ public class SymptomApplication implements StandardCBRApplication{
 	
 		simConfig.addMapping(new Attribute("diagnose", Symptom.class), new EqualsStringIgnoreCase());
 		simConfig.addMapping(new Attribute("name", Symptom.class), new EqualsStringIgnoreCase());
-		simConfig.addMapping(new Attribute("percentOfDiagnose", Symptom.class), new Interval(10));
 	}
 	
 	public void cycle(CBRQuery query) throws ExecutionException {
@@ -55,9 +54,35 @@ public class SymptomApplication implements StandardCBRApplication{
 	public CBRCaseBase preCycle() throws ExecutionException {
 		_caseBase.init(_connector);
 		java.util.Collection<CBRCase> cases = _caseBase.getCases();
-		for (CBRCase c: cases)
-			System.out.println(c.getDescription());
+		//for (CBRCase c: cases)
+			//System.out.println(c.getDescription());
 		return _caseBase;
+	}
+	
+	public void runSymptomApp(String n, String d){
+		StandardCBRApplication recommender = new SymptomApplication();
+		
+		try{
+			recommender.configure();
+
+			recommender.preCycle();
+
+			CBRQuery query = new CBRQuery();
+			
+			Symptom symptom = new Symptom();
+			
+			//symptom.setDiagnose(Arrays.asList("asthma"));
+			symptom.setName(n);
+			symptom.setDiagnose(d);
+
+			query.setDescription(symptom);
+
+			recommender.cycle(query);
+
+			recommender.postCycle();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public static void main(String[] args) {
@@ -75,7 +100,6 @@ public class SymptomApplication implements StandardCBRApplication{
 			//symptom.setDiagnose(Arrays.asList("asthma"));
 			symptom.setName("fever");
 			symptom.setDiagnose("asthma");
-			symptom.setPercentOfDiagnose(15);
 			
 			query.setDescription(symptom);
 

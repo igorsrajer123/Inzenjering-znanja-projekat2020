@@ -6,7 +6,6 @@ import java.net.URL;
 import java.util.Collection;
 import java.util.LinkedList;
 
-import model.Medication;
 import model.Procedure;
 import ucm.gaia.jcolibri.cbrcore.CBRCase;
 import ucm.gaia.jcolibri.cbrcore.CaseBaseFilter;
@@ -21,7 +20,7 @@ public class ProcedureConnector implements Connector{
 		LinkedList<CBRCase> cases = new LinkedList<CBRCase>();
 		
 		try{
-			BufferedReader br = new BufferedReader(new InputStreamReader(FileIO.openFile("data/procedures.csv")));
+			BufferedReader br = new BufferedReader(new InputStreamReader(FileIO.openFile("data/podaci.csv")));
 			
 			if (br == null)
 				throw new Exception("Error opening file");
@@ -37,10 +36,9 @@ public class ProcedureConnector implements Connector{
 				//parsiranje procedures.csv fajla
 				Procedure procedure = new Procedure();
 				
-				procedure.setDisease(values[0]);
-				procedure.setName(values[1]);
-				procedure.setPercentOfUse(Integer.parseInt(values[2]));
-				
+				procedure.setDisease(values[4]);
+				procedure.setName(values[6]);
+			
 				cbrCase.setDescription(procedure);
 				cases.add(cbrCase);				
 			}

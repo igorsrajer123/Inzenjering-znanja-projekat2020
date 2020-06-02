@@ -3,6 +3,7 @@ package connector;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.URL;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
 
@@ -20,7 +21,7 @@ public class MedicationConnector implements Connector{
 		LinkedList<CBRCase> cases = new LinkedList<CBRCase>();
 		
 		try{
-			BufferedReader br = new BufferedReader(new InputStreamReader(FileIO.openFile("data/medications.csv")));
+			BufferedReader br = new BufferedReader(new InputStreamReader(FileIO.openFile("data/podaci.csv")));
 			
 			if (br == null)
 				throw new Exception("Error opening file");
@@ -36,9 +37,11 @@ public class MedicationConnector implements Connector{
 				//parsiranje medications.csv fajla
 				Medication medication = new Medication();
 				
-				medication.setDisease(values[0]);			
-				medication.setName(values[1]);
-				medication.setPercentOfUse(Integer.parseInt(values[2]));
+				medication.setName(values[5]);
+				medication.setDisease(values[4]);
+				medication.setSymptom(Arrays.asList(values[3]));
+				//medication.setSymptom(values[3]);
+				//medication.setPercentOfUse(Integer.parseInt(values[2]));
 				
 				cbrCase.setDescription(medication);
 				cases.add(cbrCase);				

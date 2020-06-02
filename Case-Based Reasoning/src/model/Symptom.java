@@ -7,12 +7,12 @@ public class Symptom implements CaseComponent{
 
 	private String name;
 	private String diagnose;
-	private int percentOfDiagnose;
-	
-	public Symptom(String name, String diagnose, int percent){
+	private String age;
+
+	public Symptom(String name, String diagnose, String age){
 		this.name = name;
 		this.diagnose = diagnose;
-		this.percentOfDiagnose = percent;
+		this.age = age;
 	}
 	
 	public Symptom(){
@@ -34,19 +34,13 @@ public class Symptom implements CaseComponent{
 	public void setDiagnose(String diagnose) {
 		this.diagnose = diagnose;
 	}
-
-	public int getPercentOfDiagnose() {
-		return percentOfDiagnose;
+	
+	public String getAge() {
+		return age;
 	}
 
-	public void setPercentOfDiagnose(int percentOfDiagnose) {
-		this.percentOfDiagnose = percentOfDiagnose;
-	}
-
-	@Override
-	public String toString() {
-		return "Symptom [name=" + name + ", diagnose=" + diagnose
-				+ ", percentOfDiagnose=" + percentOfDiagnose + "]";
+	public void setAge(String age) {
+		this.age = age;
 	}
 	
 	@Override

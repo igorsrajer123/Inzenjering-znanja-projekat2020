@@ -1,23 +1,25 @@
 package model;
 
+import java.util.List;
+
 import ucm.gaia.jcolibri.cbrcore.Attribute;
 import ucm.gaia.jcolibri.cbrcore.CaseComponent;
 
 public class Medication implements CaseComponent{
 	private String name;
 	private String disease;
-	private int percentOfUse;
-	
-	public Medication(String name, String disease, int percentOfUse) {
-		super();
-		this.name = name;
-		this.disease = disease;
-		this.percentOfUse = percentOfUse;
-	}
+	private List<String> symptoms;
 	
 	public Medication() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+	
+	public Medication(String name, String disease, List<String> symptoms) {
+		super();
+		this.name = name;
+		this.disease = disease;
+		this.symptoms = symptoms;
 	}
 
 	public String getName() {
@@ -35,19 +37,18 @@ public class Medication implements CaseComponent{
 	public void setDisease(String disease) {
 		this.disease = disease;
 	}
-
-	public int getPercentOfUse() {
-		return percentOfUse;
+	
+	public List<String> getSymptom() {
+		return symptoms;
 	}
 
-	public void setPercentOfUse(int percentOfUse) {
-		this.percentOfUse = percentOfUse;
+	public void setSymptom(List<String> symptoms) {
+		this.symptoms = symptoms;
 	}
 
 	@Override
 	public String toString() {
-		return "Medication [name=" + name + ", disease=" + disease
-				+ ", percentOfUse=" + percentOfUse + "]";
+		return "Medication [symptom=" + symptoms + ", disease=" + disease + ", name=" + name + "]";
 	}
 	
 	@Override

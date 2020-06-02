@@ -1,12 +1,14 @@
 package cbr;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import com.sun.xml.internal.bind.v2.runtime.unmarshaller.XsiNilLoader.Array;
-
+import similarity.NewTableSimilarity;
+import similarity.TableSimilarity;
+import model.Disease;
 import model.Medication;
+import connector.DiseaseConnector;
 import connector.MedicationConnector;
 import ucm.gaia.jcolibri.casebase.LinealCaseBase;
 import ucm.gaia.jcolibri.cbraplications.StandardCBRApplication;
@@ -22,9 +24,10 @@ import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNScoringMethod;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.global.Average;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.EqualsStringIgnoreCase;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Interval;
+import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.MaxString;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
 
-public class MedicationApplication implements StandardCBRApplication{
+public class DiseaseApplication implements StandardCBRApplication{
 
 	Connector _connector;  /** Connector object */
 	
@@ -32,25 +35,32 @@ public class MedicationApplication implements StandardCBRApplication{
 
 	NNConfig simConfig;  /** KNN configuration */
 	
+	public static ArrayList<String> aaa;
+	
 	public void configure() throws ExecutionException {
-		_connector =  new MedicationConnector();
+		_connector =  new DiseaseConnector();
 		
 		_caseBase = new LinealCaseBase();  // Create a Lineal case base for in-memory organization
 		
+		aaa = new ArrayList<String>();
+
 		simConfig = new NNConfig(); // KNN configuration
 		simConfig.setDescriptionSimFunction(new Average());  // global similarity function = average
 	
-		simConfig.addMapping(new Attribute("disease", Medication.class), new EqualsStringIgnoreCase());
-		simConfig.addMapping(new Attribute("name", Medication.class), new EqualsStringIgnoreCase());
-		simConfig.addMapping(new Attribute("symptoms", Medication.class), new EqualsStringIgnoreCase());
+		simConfig.addMapping(new Attribute("symptom", Disease.class), new EqualsStringIgnoreCase());
+		simConfig.addMapping(new Attribute("age", Disease.class), new Interval(10));
+		simConfig.addMapping(new Attribute("disease", Disease.class), new EqualsStringIgnoreCase());
 	}
 	
 	public void cycle(CBRQuery query) throws ExecutionException {
 		Collection<RetrievalResult> eval = NNScoringMethod.evaluateSimilarity(_caseBase.getCases(), query, simConfig);
 		eval = SelectCases.selectTopKRR(eval, 4);
 		System.out.println("Retrieved cases:");
-		for (RetrievalResult nse : eval)
+		for (RetrievalResult nse : eval){
 			System.out.println(nse.get_case().getDescription() + " -> " + nse.getEval());
+			String s = nse.get_case().getDescription().toString();
+			aaa.add(s);
+		}
 	}
 
 	public void postCycle() throws ExecutionException {
@@ -65,8 +75,8 @@ public class MedicationApplication implements StandardCBRApplication{
 		return _caseBase;
 	}
 	
-	public void runMedicationApp(String d, List<String> s){
-		StandardCBRApplication recommender = new MedicationApplication();
+	public void runDiseaseApp(String n, String symptom, int age){
+		StandardCBRApplication recommender = new DiseaseApplication();
 		
 		try{
 			recommender.configure();
@@ -75,41 +85,13 @@ public class MedicationApplication implements StandardCBRApplication{
 
 			CBRQuery query = new CBRQuery();
 			
-			Medication medication = new Medication();
+			Disease disease = new Disease();
 			
-			//symptom.setDiagnose(Arrays.asList("asthma"));
-			//medication.setName(n);
-			medication.setDisease(d);
-			medication.setSymptom(s);
+			disease.setSymptom(symptom);
+			disease.setAge(age);
+			disease.setDisease(n);
 			
-			query.setDescription(medication);
-
-			recommender.cycle(query);
-
-			recommender.postCycle();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void main(String[] args) {
-		StandardCBRApplication recommender = new MedicationApplication();
-		
-		try{
-			recommender.configure();
-
-			recommender.preCycle();
-
-			CBRQuery query = new CBRQuery();
-			
-			Medication medication = new Medication();
-			
-			//symptom.setDiagnose(Arrays.asList("asthma"));
-			medication.setName("albuterol");
-			medication.setDisease("asthma");
-			medication.setSymptom(Arrays.asList("cough"));
-			
-			query.setDescription(medication);
+			query.setDescription(disease);
 
 			recommender.cycle(query);
 
