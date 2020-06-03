@@ -39,8 +39,8 @@ public class MedicationConnector implements Connector{
 				
 				medication.setName(values[5]);
 				medication.setDisease(values[4]);
-				medication.setSymptom(Arrays.asList(values[3]));
-				//medication.setSymptom(values[3]);
+				medication.setSymptom(values[3]);
+				//medication.setSymptom(Arrays.asList(values[3]));
 				//medication.setPercentOfUse(Integer.parseInt(values[2]));
 				
 				cbrCase.setDescription(medication);

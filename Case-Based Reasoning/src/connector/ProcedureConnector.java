@@ -33,10 +33,13 @@ public class ProcedureConnector implements Connector{
 
 				CBRCase cbrCase = new CBRCase();
 				
-				//parsiranje procedures.csv fajla
+				//parsiranje podaci.csv fajla
 				Procedure procedure = new Procedure();
 				
+				procedure.setAge(Integer.parseInt(values[2]));
+				procedure.setSymptom(values[3]);
 				procedure.setDisease(values[4]);
+				procedure.setMedication(values[5]);				
 				procedure.setName(values[6]);
 			
 				cbrCase.setDescription(procedure);

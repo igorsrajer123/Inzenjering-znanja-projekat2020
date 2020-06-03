@@ -49,7 +49,7 @@ public class DiseaseApplication implements StandardCBRApplication{
 	
 		simConfig.addMapping(new Attribute("symptom", Disease.class), new EqualsStringIgnoreCase());
 		simConfig.addMapping(new Attribute("age", Disease.class), new Interval(10));
-		simConfig.addMapping(new Attribute("disease", Disease.class), new EqualsStringIgnoreCase());
+		//simConfig.addMapping(new Attribute("disease", Disease.class), new EqualsStringIgnoreCase());
 	}
 	
 	public void cycle(CBRQuery query) throws ExecutionException {

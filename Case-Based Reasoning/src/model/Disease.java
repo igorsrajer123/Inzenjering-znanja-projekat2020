@@ -1,7 +1,5 @@
 package model;
 
-import java.util.List;
-
 import ucm.gaia.jcolibri.cbrcore.Attribute;
 import ucm.gaia.jcolibri.cbrcore.CaseComponent;
 
@@ -21,7 +19,7 @@ public class Disease implements CaseComponent{
 		this.symptom = symptom;
 	}
 	
-	public Disease(String disease, String symptoms, int age) {
+	public Disease(String disease, String symptom, int age) {
 		super();
 		this.disease = disease;
 		this.symptom = symptom;

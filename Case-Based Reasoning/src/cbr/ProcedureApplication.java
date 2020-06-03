@@ -1,6 +1,8 @@
 package cbr;
 
+import java.util.ArrayList;
 import java.util.Collection;
+
 import model.Procedure;
 import connector.ProcedureConnector;
 import ucm.gaia.jcolibri.casebase.LinealCaseBase;
@@ -17,6 +19,7 @@ import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNScoringMethod;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.global.Average;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.EqualsStringIgnoreCase;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Interval;
+import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.MaxString;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
 
 public class ProcedureApplication implements StandardCBRApplication{
@@ -27,24 +30,34 @@ Connector _connector;  /** Connector object */
 
 	NNConfig simConfig;  /** KNN configuration */
 	
+	public static ArrayList<String> aaa;
+	
 	public void configure() throws ExecutionException {
 		_connector =  new ProcedureConnector();
 		
 		_caseBase = new LinealCaseBase();  // Create a Lineal case base for in-memory organization
 		
+		aaa = new ArrayList<String>();
+		
 		simConfig = new NNConfig(); // KNN configuration
 		simConfig.setDescriptionSimFunction(new Average());  // global similarity function = average
 	
 		simConfig.addMapping(new Attribute("disease", Procedure.class), new EqualsStringIgnoreCase());
-		simConfig.addMapping(new Attribute("name", Procedure.class), new EqualsStringIgnoreCase());
+		simConfig.addMapping(new Attribute("age", Procedure.class), new Interval(10));
+		simConfig.addMapping(new Attribute("medication", Procedure.class), new EqualsStringIgnoreCase());
+		simConfig.addMapping(new Attribute("symptom", Procedure.class), new MaxString());
+		//simConfig.addMapping(new Attribute("name", Procedure.class), new EqualsStringIgnoreCase());
 	}
 	
 	public void cycle(CBRQuery query) throws ExecutionException {
 		Collection<RetrievalResult> eval = NNScoringMethod.evaluateSimilarity(_caseBase.getCases(), query, simConfig);
 		eval = SelectCases.selectTopKRR(eval, 4);
 		System.out.println("Retrieved cases:");
-		for (RetrievalResult nse : eval)
+		for (RetrievalResult nse : eval){
 			System.out.println(nse.get_case().getDescription() + " -> " + nse.getEval());
+			String s = nse.get_case().getDescription().toString();
+			aaa.add(s);
+		}
 	}
 
 	public void postCycle() throws ExecutionException {
@@ -59,7 +72,7 @@ Connector _connector;  /** Connector object */
 		return _caseBase;
 	}
 	
-	public void runProcedureApp(String n, String d){
+	public void runProcedureApp(String n, String d, String m, int a, String s){
 		StandardCBRApplication recommender = new ProcedureApplication();
 		
 		try{
@@ -74,32 +87,9 @@ Connector _connector;  /** Connector object */
 			//symptom.setDiagnose(Arrays.asList("asthma"));
 			procedure.setName(n);
 			procedure.setDisease(d);
-			
-			query.setDescription(procedure);
-
-			recommender.cycle(query);
-
-			recommender.postCycle();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public static void main(String[] args) {
-		StandardCBRApplication recommender = new ProcedureApplication();
-		
-		try{
-			recommender.configure();
-
-			recommender.preCycle();
-
-			CBRQuery query = new CBRQuery();
-			
-			Procedure procedure = new Procedure();
-			
-			//symptom.setDiagnose(Arrays.asList("asthma"));
-			procedure.setName("nebulizer therapy");
-			procedure.setDisease("asthma");
+			procedure.setMedication(m);
+			procedure.setAge(a);
+			procedure.setSymptom(s);
 			
 			query.setDescription(procedure);
 
