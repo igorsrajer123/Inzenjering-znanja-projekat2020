@@ -2,14 +2,8 @@ package cbr;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-
-import similarity.NewTableSimilarity;
-import similarity.TableSimilarity;
 import model.Disease;
-import model.Medication;
 import connector.DiseaseConnector;
-import connector.MedicationConnector;
 import ucm.gaia.jcolibri.casebase.LinealCaseBase;
 import ucm.gaia.jcolibri.cbraplications.StandardCBRApplication;
 import ucm.gaia.jcolibri.cbrcore.Attribute;
@@ -24,7 +18,6 @@ import ucm.gaia.jcolibri.method.retrieve.NNretrieval.NNScoringMethod;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.global.Average;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.EqualsStringIgnoreCase;
 import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.Interval;
-import ucm.gaia.jcolibri.method.retrieve.NNretrieval.similarity.local.MaxString;
 import ucm.gaia.jcolibri.method.retrieve.selection.SelectCases;
 
 public class DiseaseApplication implements StandardCBRApplication{

@@ -16,9 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import com.sun.corba.se.impl.protocol.giopmsgheaders.Message;
-import com.sun.corba.se.impl.protocol.giopmsgheaders.MessageBase;
-
 import cbr.DiseaseApplication;
 
 public class PanelBolest extends JPanel{
@@ -28,11 +25,13 @@ public class PanelBolest extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@SuppressWarnings("rawtypes")
 	public static JComboBox combo;
 
+	@SuppressWarnings("rawtypes")
 	public PanelBolest(){
 		
-		//simptomi pacijenta----------------------------------------------------------------------
+		//simptom pacijenta----------------------------------------------------------------------
 		JPanel simptomiPanel = new JPanel();
 		simptomiPanel.setBackground(Color.lightGray);
 		simptomiPanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -91,6 +90,7 @@ public class PanelBolest extends JPanel{
 		
 		btnSimp.addActionListener(new ActionListener() {
 			
+			@SuppressWarnings("unchecked")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -112,7 +112,7 @@ public class PanelBolest extends JPanel{
 						String bolest11 = ss[0];
 						String[] visak = bolest11.split("=");
 						String bolestZarez = visak[1];
-						String b = bolestZarez.replace(","," ");
+						String b = bolestZarez.replace(",","");
 
 						if(b.contains("asthma"))
 							b = "Asthma";

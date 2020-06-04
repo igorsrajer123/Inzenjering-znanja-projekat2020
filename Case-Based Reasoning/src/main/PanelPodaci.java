@@ -21,6 +21,7 @@ public class PanelPodaci extends JPanel{
 	public static JTextField przTxt;
 
 	public PanelPodaci(){
+		
 		//ime pacijenta---------------------------------------------------------------------------
 		JPanel imePanel = new JPanel();
 		imePanel.setBackground(Color.lightGray);
@@ -41,7 +42,7 @@ public class PanelPodaci extends JPanel{
 		imePanel.add(imeTxt);	
 		Main.panel.add(imePanel);
 		
-	//prezime pacijenta------------------------------------------------------------------------
+		//prezime pacijenta------------------------------------------------------------------------
 		JPanel prezimePanel = new JPanel();
 		prezimePanel.setBackground(Color.lightGray);
 		prezimePanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -61,7 +62,7 @@ public class PanelPodaci extends JPanel{
 		prezimePanel.add(przTxt);
 		Main.panel.add(prezimePanel);
 		
-	//godine pacijenta-------------------------------------------------------------------------
+		//godine pacijenta-------------------------------------------------------------------------
 		JPanel godinePanel = new JPanel();
 		godinePanel.setBackground(Color.lightGray);
 		godinePanel.setBorder(BorderFactory.createLineBorder(Color.black));

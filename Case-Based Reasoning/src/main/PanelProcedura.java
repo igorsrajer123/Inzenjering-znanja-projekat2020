@@ -24,8 +24,10 @@ public class PanelProcedura extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	@SuppressWarnings("rawtypes")
 	public static JComboBox comboProcedura;
 
+	@SuppressWarnings("rawtypes")
 	public PanelProcedura(){
 		
 		//preporucene procedure-------------------------------------------------------------------
@@ -52,6 +54,7 @@ public class PanelProcedura extends JPanel{
 				
 		btnProc.addActionListener(new ActionListener() {
 					
+			@SuppressWarnings("unchecked")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {					
 				 if(!Main.godTxt.getText().isEmpty() && !Main.simpTxt.getText().isEmpty() &&
@@ -69,7 +72,7 @@ public class PanelProcedura extends JPanel{
 						String proc1 = ss[1];
 						String[] p = proc1.split("=");
 						String proc2 = p[1];
-						String procedura = proc2.replace(","," ");		
+						String procedura = proc2.replace(",","");		
 						
 						if(procedura.contains("nebulizer_therapy"))
 							procedura = "Nebulizer therapy";

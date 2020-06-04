@@ -12,7 +12,6 @@ import javax.swing.BorderFactory;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.table.DefaultTableModel;
 
 import model.Pacijent;
 
@@ -80,6 +79,7 @@ public class Main {
 				panel.revalidate();
 	}
 	
+	@SuppressWarnings("unchecked")
 	public static void main(String[] args) {
 
 		bolesti = new ArrayList<String>();
@@ -87,18 +87,21 @@ public class Main {
 		procedure = new ArrayList<String>();
 		pacijenti = new ArrayList<Pacijent>();
 		
-		Pacijent p = new Pacijent();
-		
 		DrawGui();
 		
+		//citanje iz binarne datoteke u "pacijenti" listu
 		try {
 		      FileInputStream in = new FileInputStream("pacijent.out");
 		      ObjectInputStream ois = new ObjectInputStream(in);
-		      pacijenti = (ArrayList<Pacijent>) (ois.readObject());
+		      pacijenti = (ArrayList<Pacijent>)ois.readObject();
+		      in.close();
+		      ois.close();
 		    } catch (Exception e) {
 		      System.out.println("Problem serializing: " + e);
 		    }
 		
+		//popunjavanje tabele prilikom pokratanja aplikacije
+		//vrednostima iz "pacijenti" liste
 		Object[] rowData = new Object[7];
 		
 		for(int i = 0; i < pacijenti.size(); i++){		

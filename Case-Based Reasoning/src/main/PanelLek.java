@@ -16,7 +16,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import cbr.MedicationApplication;
-import cbr.ProcedureApplication;
 
 public class PanelLek extends JPanel{
 	
@@ -25,11 +24,13 @@ public class PanelLek extends JPanel{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@SuppressWarnings("rawtypes")
 	public static JComboBox comboLek;
 	
+	@SuppressWarnings("rawtypes")
 	public PanelLek(){
 		
-	//preporuceni lekovi-------------------------------------------------------------------
+		//preporuceni lekovi-------------------------------------------------------------------
 		JPanel lekoviPanel = new JPanel();
 		lekoviPanel.setBackground(Color.lightGray);
 		lekoviPanel.setBorder(BorderFactory.createLineBorder(Color.black));
@@ -53,6 +54,7 @@ public class PanelLek extends JPanel{
 									
 		btnLek.addActionListener(new ActionListener() {
 			
+			@SuppressWarnings("unchecked")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				if(!Main.godTxt.getText().isEmpty() && !Main.bolTxt.getText().isEmpty() && !Main.simpTxt.getText().isEmpty()){
@@ -67,7 +69,7 @@ public class PanelLek extends JPanel{
 						String lek1 = ss[2];
 						String[] visak = lek1.split("=");
 						String lekZarez = visak[1];
-						String lek = lekZarez.replace("]", " ");
+						String lek = lekZarez.replace("]", "");
 						
 						if(lek.contains("albuterol"))
 							lek = "Albuterol";
