@@ -8,6 +8,9 @@ public class Disease implements CaseComponent{
 	private String disease;
 	private String symptom;
 	private int age;
+	private String pol;
+	private String pusac;
+	private String sportista;
 	
 	public Disease() {
 		super();
@@ -46,15 +49,40 @@ public class Disease implements CaseComponent{
 		this.disease = disease;
 	}
 	
+	public String getPol() {
+		return pol;
+	}
+
+	public void setPol(String pol) {
+		this.pol = pol;
+	}
+
+	public String getPusac() {
+		return pusac;
+	}
+
+	public void setPusac(String pusac) {
+		this.pusac = pusac;
+	}
+
+	public String getSportista() {
+		return sportista;
+	}
+
+	public void setSportista(String sportista) {
+		this.sportista = sportista;
+	}
+
 	@Override
 	public String toString() {
-		return "Disease [disease=" + disease + ", symptom=" + symptom
-				+ ", age=" + age + "]";
-	}
+		return "Disease [disease=" + disease + ", symptom=" + symptom + ", age=" + age + ", pol=" + pol + ", pusac="
+				+ pusac + ", sportista=" + sportista + "]";
+	}	
+	
 	
 	@Override
 	public Attribute getIdAttribute() {
 		// TODO Auto-generated method stub
 		return null;
-	}	
+	}
 }

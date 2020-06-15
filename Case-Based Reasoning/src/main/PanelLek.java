@@ -40,16 +40,16 @@ public class PanelLek extends JPanel{
 		lek.setPreferredSize(new Dimension(95,10));
 		
 		JButton btnLek = new JButton(">>");
-		btnLek.setBackground(Color.GREEN);
+		btnLek.setBackground(new Color(51,204,255));
 		btnLek.setPreferredSize(new Dimension(50,25));
 		btnLek.setMinimumSize(new Dimension(50,25));
 		btnLek.setMaximumSize(new Dimension(50,25));
 		
 		comboLek = new JComboBox();
-		comboLek.setBackground(Color.GREEN);
-		comboLek.setPreferredSize(new Dimension(95,25));
-		comboLek.setMinimumSize(new Dimension(95,25));
-		comboLek.setMaximumSize(new Dimension(95,25));
+		comboLek.setBackground(new Color(51,204,255));
+		comboLek.setPreferredSize(new Dimension(130,25));
+		comboLek.setMinimumSize(new Dimension(130,25));
+		comboLek.setMaximumSize(new Dimension(130,25));
 		comboLek.setVisible(false);
 									
 		btnLek.addActionListener(new ActionListener() {
@@ -57,12 +57,12 @@ public class PanelLek extends JPanel{
 			@SuppressWarnings("unchecked")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				if(!Main.godTxt.getText().isEmpty() && !Main.bolTxt.getText().isEmpty() && !Main.simpTxt.getText().isEmpty()){
+				if(!Main.godTxt.getText().isEmpty() && !Main.bolTxt.getText().isEmpty() && Main.simpTxt.getSelectedItem()!=""){
 					Main.lekovi.clear();
 					
 					MedicationApplication medication = new MedicationApplication();
 					
-					medication.runMedicationApp("", Main.bolTxt.getText().toLowerCase(), Main.simpTxt.getText());
+					medication.runMedicationApp("", Main.bolTxt.getText().toLowerCase(), Main.simpTxt.getSelectedItem().toString());
 				
 					for(String s : MedicationApplication.aaa){
 						String[] ss = s.split(",");
@@ -121,6 +121,24 @@ public class PanelLek extends JPanel{
 						
 						if(lek.contains("benzonatate"))
 							lek = "Benzonatate";
+						
+						if(lek.contains("sodium chloride"))
+							lek = "Sodium chloride";
+						
+						if(lek.contains("enoxaparin"))
+							lek = "Enoxaparin";
+						
+						if(lek.contains("heparin"))
+							lek = "Heparin";
+						
+						if(lek.contains("diphenhydramin"))
+							lek = "Diphenhydramin";
+						
+						if(lek.contains("hydromorphone"))
+							lek = "Hydromorphone";
+						
+						if(lek.contains("hydroxychloroquine"))
+							lek = "Hydroxychloroquine";
 						
 						if(!Main.lekovi.contains(lek)){
 							Main.lekovi.add(lek);

@@ -40,16 +40,16 @@ public class PanelProcedura extends JPanel{
 		procedura.setPreferredSize(new Dimension(95,10));
 				
 		JButton btnProc = new JButton(">>");
-		btnProc.setBackground(Color.GREEN);
+		btnProc.setBackground(new Color(51,204,255));
 		btnProc.setPreferredSize(new Dimension(50,25));
 		btnProc.setMinimumSize(new Dimension(50,25));
 		btnProc.setMaximumSize(new Dimension(50,25));
 				
 		comboProcedura = new JComboBox();
-		comboProcedura.setBackground(Color.GREEN);
-		comboProcedura.setPreferredSize(new Dimension(160,25));
-		comboProcedura.setMinimumSize(new Dimension(160,25));
-		comboProcedura.setMaximumSize(new Dimension(160,25));
+		comboProcedura.setBackground(new Color(51,204,255));
+		comboProcedura.setPreferredSize(new Dimension(165,25));
+		comboProcedura.setMinimumSize(new Dimension(165,25));
+		comboProcedura.setMaximumSize(new Dimension(165,25));
 		comboProcedura.setVisible(false);
 				
 		btnProc.addActionListener(new ActionListener() {
@@ -57,7 +57,7 @@ public class PanelProcedura extends JPanel{
 			@SuppressWarnings("unchecked")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {					
-				 if(!Main.godTxt.getText().isEmpty() && !Main.simpTxt.getText().isEmpty() &&
+				 if(!Main.godTxt.getText().isEmpty() && Main.simpTxt.getSelectedItem()!="" &&
 					!Main.bolTxt.getText().isEmpty() && !PanelLek.comboLek.getSelectedItem().equals(null)){
 							
 					Main.procedure.clear();
@@ -65,7 +65,7 @@ public class PanelProcedura extends JPanel{
 					ProcedureApplication procedure = new ProcedureApplication();
 							
 					procedure.runProcedureApp("", Main.bolTxt.getText(), PanelLek.comboLek.getSelectedItem().toString(),
-							Integer.parseInt(Main.godTxt.getText()), Main.simpTxt.getText());
+							Integer.parseInt(Main.godTxt.getText()), Main.simpTxt.getSelectedItem().toString());
 							
 					for(String s : ProcedureApplication.aaa){
 						String[] ss = s.split(" ");
@@ -93,10 +93,10 @@ public class PanelProcedura extends JPanel{
 							procedura = "Electrocardiogram";
 						
 						if(procedura.contains("plain_x_ray"))
-							procedura = "Plain X ray";
+							procedura = "Plain X-ray";
 						
 						if(procedura.contains("x_ray_computed_tomography"))
-							procedura = "X ray computed tomography";
+							procedura = "X-ray computed tomography";
 						
 						if(procedura.contains("electrocardiogram"))
 							procedura = "Electrocardiogram";

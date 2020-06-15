@@ -15,9 +15,12 @@ public class Pacijent implements Serializable{
 	private String bolest;
 	private String lek;
 	private String procedura;
+	private String pol;
+	private String pusac;
+	private String sportista;
 	
 	public Pacijent(String ime, String prz, int god, String simp,
-			String bolest, String lek, String procedura) {
+			String bolest, String lek, String procedura, String pol, String pusac, String sportista) {
 		super();
 		this.ime = ime;
 		this.prz = prz;
@@ -26,6 +29,9 @@ public class Pacijent implements Serializable{
 		this.bolest = bolest;
 		this.lek = lek;
 		this.procedura = procedura;
+		this.pol = pol;
+		this.pusac = pusac;
+		this.sportista = sportista;
 	}
 	
 	public Pacijent() {
@@ -75,11 +81,35 @@ public class Pacijent implements Serializable{
 	public void setProcedura(String procedura) {
 		this.procedura = procedura;
 	}
-	
+
+	public String getPol() {
+		return pol;
+	}
+
+	public void setPol(String pol) {
+		this.pol = pol;
+	}
+
+	public String getPusac() {
+		return pusac;
+	}
+
+	public void setPusac(String pusac) {
+		this.pusac = pusac;
+	}
+
+	public String getSportista() {
+		return sportista;
+	}
+
+	public void setSportista(String sportista) {
+		this.sportista = sportista;
+	}
+
 	@Override
 	public String toString() {
-		return "Pacijent [ime=" + ime + ", prz=" + prz + ", god=" + god
-				+ ", simp=" + simp + ", bolest=" + bolest + ", lek=" + lek
-				+ ", procedura=" + procedura + "]";
+		return "Pacijent [ime=" + ime + ", prz=" + prz + ", god=" + god + ", simp=" + simp + ", bolest=" + bolest
+				+ ", lek=" + lek + ", procedura=" + procedura + ", pol=" + pol + ", pusac=" + pusac + ", sportista="
+				+ sportista + "]";
 	}
 }

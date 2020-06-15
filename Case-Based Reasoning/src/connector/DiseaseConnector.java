@@ -40,6 +40,9 @@ public class DiseaseConnector implements Connector{
 				disease.setAge(Integer.parseInt(values[2]));
 				//disease.setSymptoms(Arrays.asList(values[3]));
 				disease.setSymptom(values[3]);
+				disease.setPol(values[7]);
+				disease.setPusac(values[8]);
+				disease.setSportista(values[9]);
 				
 				cbrCase.setDescription(disease);
 				cases.add(cbrCase);				

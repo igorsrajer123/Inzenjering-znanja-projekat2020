@@ -46,8 +46,8 @@ public class ViewPanel extends JPanel{
 		panelView.setLayout(layout);
 		panelView.setBackground(Color.lightGray);
 		panelView.setBorder(BorderFactory.createLineBorder(Color.black));
-		panelView.setPreferredSize(new Dimension(500,500));
-		panelView.setMinimumSize(new Dimension(500,500));
+		panelView.setPreferredSize(new Dimension(700,500));
+		panelView.setMinimumSize(new Dimension(700,500));
 		Main.frame.getContentPane().add(panelView, "East");
 		
 		//inicijalizacija tabele
@@ -57,30 +57,40 @@ public class ViewPanel extends JPanel{
 		model.addColumn("Ime");
 		model.addColumn("Prezime");
 		model.addColumn("Godine");
+		model.addColumn("Pol");
+		model.addColumn("Pusac");
+		model.addColumn("Sportista");
 		model.addColumn("Simptom");
 		model.addColumn("Bolest");
 		model.addColumn("Lek");
 		model.addColumn("Procedura");
 		t.getColumnModel().getColumn(0).setPreferredWidth(59);
 		t.getColumnModel().getColumn(1).setPreferredWidth(59);
-		t.getColumnModel().getColumn(2).setPreferredWidth(59);
-		t.getColumnModel().getColumn(3).setPreferredWidth(59);
-		t.getColumnModel().getColumn(4).setPreferredWidth(59);
-		t.getColumnModel().getColumn(5).setPreferredWidth(59);
+		t.getColumnModel().getColumn(2).setPreferredWidth(47);
+		t.getColumnModel().getColumn(3).setPreferredWidth(47);
+		t.getColumnModel().getColumn(4).setPreferredWidth(40);
+		t.getColumnModel().getColumn(5).setPreferredWidth(40);
+		t.getColumnModel().getColumn(6).setPreferredWidth(59);
+		t.getColumnModel().getColumn(7).setPreferredWidth(59);
+		t.getColumnModel().getColumn(8).setPreferredWidth(59);
+		t.getColumnModel().getColumn(9).setPreferredWidth(59);
 		t.setAutoResizeMode(JTable.AUTO_RESIZE_LAST_COLUMN);
 		t.setRowHeight(20);
 		
 		//popunjavanje tabele vrednostima iz liste "Main.pacijenti"
-		Object[] rowData = new Object[7];
+		Object[] rowData = new Object[10];
 		
 		for(int i = 0; i < Main.pacijenti.size(); i++){		
 				rowData[0] = Main.pacijenti.get(i).getIme();
 				rowData[1] = Main.pacijenti.get(i).getPrz();
 				rowData[2] = Main.pacijenti.get(i).getGod();
-				rowData[3] = Main.pacijenti.get(i).getSimp();
-				rowData[4] = Main.pacijenti.get(i).getBolest();
-				rowData[5] = Main.pacijenti.get(i).getLek();
-				rowData[6] = Main.pacijenti.get(i).getProcedura();
+				rowData[3] = Main.pacijenti.get(i).getPol();
+				rowData[4] = Main.pacijenti.get(i).getPusac();
+				rowData[5] = Main.pacijenti.get(i).getSportista();
+				rowData[6] = Main.pacijenti.get(i).getSimp();
+				rowData[7] = Main.pacijenti.get(i).getBolest();
+				rowData[8] = Main.pacijenti.get(i).getLek();
+				rowData[9] = Main.pacijenti.get(i).getProcedura();
 				model.addRow(rowData);
 		}
 		
@@ -122,7 +132,7 @@ public class ViewPanel extends JPanel{
 			
 				if(PanelPodaci.imeTxt.getText().isEmpty() || PanelPodaci.przTxt.getText().isEmpty() ||
 					Main.godTxt.getText().isEmpty() || Main.bolTxt.getText().isEmpty() ||
-						Main.simpTxt.getText().isEmpty() ||!PanelProcedura.comboProcedura.isVisible() || !PanelLek.comboLek.isVisible()){
+						Main.simpTxt.getSelectedItem()=="" || Main.polTxt.getSelectedItem() =="" ||!PanelProcedura.comboProcedura.isVisible() || !PanelLek.comboLek.isVisible()){
 
 						 JOptionPane.showMessageDialog(null, "Molimo Vas popunite odgovarajuća polja!");	
 				}
@@ -132,21 +142,37 @@ public class ViewPanel extends JPanel{
 					p.setIme(PanelPodaci.imeTxt.getText());
 					p.setPrz(PanelPodaci.przTxt.getText());
 					p.setGod(Integer.parseInt(Main.godTxt.getText()));
-					p.setSimp(Main.simpTxt.getText());
+					p.setPol(Main.polTxt.getSelectedItem().toString());
+					
+					if(Main.pusac.isSelected())
+						p.setPusac("Da");
+					else if(!Main.pusac.isSelected())
+						p.setPusac("Ne");
+					
+					if(Main.sportista.isSelected())
+						p.setSportista("Da");
+					else if(!Main.sportista.isSelected())
+						p.setSportista("Ne");
+					
+					p.setSimp(Main.simpTxt.getSelectedItem().toString());
 					p.setBolest(Main.bolTxt.getText());
 					p.setLek(PanelLek.comboLek.getSelectedItem().toString());
 					p.setProcedura(PanelProcedura.comboProcedura.getSelectedItem().toString());	
-					
+				
+									
 					Main.pacijenti.add(p);
 					
 					PanelPodaci.imeTxt.setText("");
 					PanelPodaci.przTxt.setText("");
 					Main.godTxt.setText("");
-					Main.simpTxt.setText("");
+					Main.simpTxt.setSelectedItem(null);
 					Main.bolTxt.setText("");
 					PanelBolest.combo.setVisible(false);
 					PanelLek.comboLek.setVisible(false);
 					PanelProcedura.comboProcedura.setVisible(false);
+					Main.polTxt.setSelectedItem(null);
+					Main.sportista.setSelected(false);
+					Main.pusac.setSelected(false);
 					
 					Main.bolesti.clear();
 					Main.lekovi.clear();
@@ -154,7 +180,7 @@ public class ViewPanel extends JPanel{
 					
 					//dodavanje reda u tabeli
 					String pacijent = p.toString();
-					Object[] rowData = new Object[7];
+					Object[] rowData = new Object[10];
 					
 					String[] pParts = pacijent.split(",");
 					
@@ -185,15 +211,31 @@ public class ViewPanel extends JPanel{
 					String proP = pParts[6];
 					String[] pro1 = proP.split("=");
 					String pro = pro1[1];
-					String pro2 = pro.replace("]","");
+					//String pro2 = pro.replace("]","");
+					
+					String pol = pParts[7];
+					String[] pol1 = pol.split("=");
+					String praviPol = pol1[1];
+					
+					String pusac = pParts[8];
+					String[] pus1 = pusac.split("=");
+					String praviPusac = pus1[1];
+					
+					String sport = pParts[9];
+					String[] sp1 = sport.split("=");
+					String sportista = sp1[1];
+					String praviSportista = sportista.replace("]", "");
 					
 					rowData[0] = ime;
 					rowData[1] = prz;
 					rowData[2] = god;
-					rowData[3] = sim;
-					rowData[4] = bol;
-					rowData[5] = lek;
-					rowData[6] = pro2;
+					rowData[3] = praviPol;
+					rowData[4] = praviPusac;
+					rowData[5] = praviSportista;
+					rowData[6] = sim;					
+					rowData[7] = bol;
+					rowData[8] = lek;
+					rowData[9] = pro;
 					
 					model.addRow(rowData);
 					
@@ -201,7 +243,7 @@ public class ViewPanel extends JPanel{
 					panelView.repaint();
 					
 					 try {
-					      FileOutputStream out = new FileOutputStream("pacijent.out");
+					      FileOutputStream out = new FileOutputStream("pacijent2.out");
 					      ObjectOutputStream oos = new ObjectOutputStream(out);
 					      oos.writeObject(Main.pacijenti);
 					      oos.flush();
@@ -224,15 +266,21 @@ public class ViewPanel extends JPanel{
 					String ime =t.getValueAt(t.getSelectedRow(), 0).toString();
 					String prz = t.getValueAt(t.getSelectedRow(), 1).toString();
 					String god = t.getValueAt(t.getSelectedRow(), 2).toString();
-					String simp = t.getValueAt(t.getSelectedRow(), 3).toString();
-					String bol = t.getValueAt(t.getSelectedRow(), 4).toString();
-					String lek = t.getValueAt(t.getSelectedRow(), 5).toString();
-					String proc = t.getValueAt(t.getSelectedRow(), 6).toString();
+					String pol = t.getValueAt(t.getSelectedRow(), 3).toString();
+					String pusac = t.getValueAt(t.getSelectedRow(), 4).toString();
+					String sport = t.getValueAt(t.getSelectedRow(), 5).toString();
+					String simp = t.getValueAt(t.getSelectedRow(), 6).toString();			
+					String bol = t.getValueAt(t.getSelectedRow(), 7).toString();
+					String lek = t.getValueAt(t.getSelectedRow(), 8).toString();
+					String proc = t.getValueAt(t.getSelectedRow(), 9).toString();
 					
 					selectedPatient = new Pacijent();					
 					selectedPatient.setIme(ime);
 					selectedPatient.setPrz(prz);
 					selectedPatient.setGod(Integer.parseInt(god));
+					selectedPatient.setPol(pol);
+					selectedPatient.setPusac(pusac);
+					selectedPatient.setSportista(sport);
 					selectedPatient.setSimp(simp);
 					selectedPatient.setBolest(bol);
 					selectedPatient.setLek(lek);
@@ -261,7 +309,7 @@ public class ViewPanel extends JPanel{
 							model.removeRow(rows[j]-j);
 						
 						  try {
-						      FileOutputStream out = new FileOutputStream("pacijent.out");
+						      FileOutputStream out = new FileOutputStream("pacijent2.out");
 						      ObjectOutputStream oos = new ObjectOutputStream(out);
 						      oos.writeObject(Main.pacijenti);
 						      oos.flush();

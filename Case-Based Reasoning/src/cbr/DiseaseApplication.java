@@ -42,7 +42,9 @@ public class DiseaseApplication implements StandardCBRApplication{
 	
 		simConfig.addMapping(new Attribute("symptom", Disease.class), new EqualsStringIgnoreCase());
 		simConfig.addMapping(new Attribute("age", Disease.class), new Interval(10));
-		//simConfig.addMapping(new Attribute("disease", Disease.class), new EqualsStringIgnoreCase());
+		simConfig.addMapping(new Attribute("pol", Disease.class), new EqualsStringIgnoreCase());
+		simConfig.addMapping(new Attribute("pusac", Disease.class), new EqualsStringIgnoreCase());
+		simConfig.addMapping(new Attribute("sportista", Disease.class), new EqualsStringIgnoreCase());
 	}
 	
 	public void cycle(CBRQuery query) throws ExecutionException {
@@ -68,7 +70,7 @@ public class DiseaseApplication implements StandardCBRApplication{
 		return _caseBase;
 	}
 	
-	public void runDiseaseApp(String n, String symptom, int age){
+	public void runDiseaseApp(String n, String symptom, int age, String pol, String pusac, String sportista){
 		StandardCBRApplication recommender = new DiseaseApplication();
 		
 		try{
@@ -83,6 +85,9 @@ public class DiseaseApplication implements StandardCBRApplication{
 			disease.setSymptom(symptom);
 			disease.setAge(age);
 			disease.setDisease(n);
+			disease.setPol(pol);
+			disease.setPusac(pusac);
+			disease.setSportista(sportista);
 			
 			query.setDescription(disease);
 

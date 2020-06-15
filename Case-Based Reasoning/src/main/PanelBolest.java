@@ -28,7 +28,7 @@ public class PanelBolest extends JPanel{
 	@SuppressWarnings("rawtypes")
 	public static JComboBox combo;
 
-	@SuppressWarnings("rawtypes")
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public PanelBolest(){
 		
 		//simptom pacijenta----------------------------------------------------------------------
@@ -41,23 +41,28 @@ public class PanelBolest extends JPanel{
 		
 		JLabel simp = new JLabel("  Simptomi pacijenta: ");
 		simp.setPreferredSize(new Dimension(95,10));
-		Main.simpTxt = new JTextField();
-		Main.simpTxt.setPreferredSize(new Dimension(130,25));
-		Main.simpTxt.setMinimumSize(new Dimension(130,25));
-		Main.simpTxt.setMaximumSize(new Dimension(130,25));
+		Main.simpTxt = new JComboBox();
+		Main.simpTxt.setModel(new DefaultComboBoxModel<String>(Main.simptomi.toArray(new String[0])));
+		Main.simpTxt.setPreferredSize(new Dimension(140,25));
+		Main.simpTxt.setMinimumSize(new Dimension(140,25));
+		Main.simpTxt.setMaximumSize(new Dimension(140,25));
 		
 		final JButton btnSimp = new JButton("Predložene bolesti>>");
-		btnSimp.setBackground(Color.GREEN);
+		btnSimp.setBackground(new Color(51,204,255));
 		btnSimp.setPreferredSize(new Dimension(155,25));
 		btnSimp.setMinimumSize(new Dimension(100,25));
 		btnSimp.setMaximumSize(new Dimension(155,25));
 						
 		combo = new JComboBox();
-		combo.setBackground(Color.GREEN);
+		combo.setBackground(new Color(51,204,255));
 		combo.setPreferredSize(new Dimension(160,25));
 		combo.setMinimumSize(new Dimension(160,25));
 		combo.setMaximumSize(new Dimension(160,25));
 		combo.setVisible(false);
+		
+		JLabel labela = new JLabel("Unesite ispravne simptome!");
+		labela.setForeground(Color.RED);
+		labela.setVisible(false);
 		
 		simptomiPanel.setLayout(new BoxLayout(simptomiPanel, BoxLayout.X_AXIS));
 		simptomiPanel.add(simp);
@@ -66,6 +71,7 @@ public class PanelBolest extends JPanel{
 		simptomiPanel.add(btnSimp);
 		simptomiPanel.add(Box.createHorizontalStrut(5));
 		simptomiPanel.add(combo);
+		simptomiPanel.add(labela);
 		Main.panel.add(simptomiPanel);
 		
 		//bolest pacijenta--------------------------------------------------------------------------
@@ -90,11 +96,10 @@ public class PanelBolest extends JPanel{
 		
 		btnSimp.addActionListener(new ActionListener() {
 			
-			@SuppressWarnings("unchecked")
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
-				if(Main.simpTxt.getText().isEmpty() || Main.godTxt.getText().isEmpty()){
+				if(Main.simpTxt.getSelectedItem()=="" || Main.godTxt.getText().isEmpty()){
 					combo.setVisible(false);
 					Main.bolesti.clear();
 					Main.bolTxt.setText(null);
@@ -105,7 +110,21 @@ public class PanelBolest extends JPanel{
 					
 					DiseaseApplication disease = new DiseaseApplication();
 					
-					disease.runDiseaseApp("",Main.simpTxt.getText(), Integer.parseInt(Main.godTxt.getText()));
+					if(Main.pusac.isSelected() && Main.sportista.isSelected())
+					disease.runDiseaseApp("",Main.simpTxt.getSelectedItem().toString(), Integer.parseInt(Main.godTxt.getText()),
+								Main.polTxt.getSelectedItem().toString(), "da", "da");
+					
+					else if(!Main.pusac.isSelected() && !Main.sportista.isSelected())
+						disease.runDiseaseApp("",Main.simpTxt.getSelectedItem().toString(), Integer.parseInt(Main.godTxt.getText()),
+								Main.polTxt.getSelectedItem().toString(), "ne", "ne");
+					
+					else if(Main.pusac.isSelected() && !Main.sportista.isSelected())
+						disease.runDiseaseApp("",Main.simpTxt.getSelectedItem().toString(), Integer.parseInt(Main.godTxt.getText()),
+								Main.polTxt.getSelectedItem().toString(), "da", "ne");
+					
+					else if(!Main.pusac.isSelected() && Main.sportista.isSelected())
+						disease.runDiseaseApp("",Main.simpTxt.getSelectedItem().toString(), Integer.parseInt(Main.godTxt.getText()),
+								Main.polTxt.getSelectedItem().toString(), "ne", "da");
 					
 					for(String s : DiseaseApplication.aaa){			
 						String[] ss = s.split(",");
@@ -134,6 +153,18 @@ public class PanelBolest extends JPanel{
 						
 						if(b.contains("pulmonary hypertension"))
 							b = "Pulmonary hypertension";
+						
+						if(b.contains("emphysema")) {
+							b = "Emphysema";
+						}
+						
+						if(b.contains("pulmonary embolism")) {
+							b = "Pulmonary embolism";
+						}
+						
+						if(b.contains("sarcoidosis")) {
+							b = "Sarcoidosis";
+						}
 																
 						if(!Main.bolesti.contains(b)){	
 							Main.bolesti.add(b);
