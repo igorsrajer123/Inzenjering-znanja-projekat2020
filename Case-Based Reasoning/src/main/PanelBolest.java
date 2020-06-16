@@ -27,12 +27,14 @@ public class PanelBolest extends JPanel{
 	
 	@SuppressWarnings("rawtypes")
 	public static JComboBox combo;
+	public static JPanel simptomiPanel;
+	public static JPanel bolestPanel;
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public PanelBolest(){
 		
 		//simptom pacijenta----------------------------------------------------------------------
-		JPanel simptomiPanel = new JPanel();
+		simptomiPanel = new JPanel();
 		simptomiPanel.setBackground(Color.lightGray);
 		simptomiPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		simptomiPanel.setPreferredSize(new Dimension(300,70));
@@ -42,19 +44,20 @@ public class PanelBolest extends JPanel{
 		JLabel simp = new JLabel("  Simptomi pacijenta: ");
 		simp.setPreferredSize(new Dimension(95,10));
 		Main.simpTxt = new JComboBox();
+		Main.simpTxt.setBackground(Color.LIGHT_GRAY);
 		Main.simpTxt.setModel(new DefaultComboBoxModel<String>(Main.simptomi.toArray(new String[0])));
 		Main.simpTxt.setPreferredSize(new Dimension(140,25));
 		Main.simpTxt.setMinimumSize(new Dimension(140,25));
 		Main.simpTxt.setMaximumSize(new Dimension(140,25));
 		
 		final JButton btnSimp = new JButton("Predložene bolesti>>");
-		btnSimp.setBackground(new Color(51,204,255));
+		btnSimp.setBackground(Color.LIGHT_GRAY);
 		btnSimp.setPreferredSize(new Dimension(155,25));
 		btnSimp.setMinimumSize(new Dimension(100,25));
 		btnSimp.setMaximumSize(new Dimension(155,25));
 						
 		combo = new JComboBox();
-		combo.setBackground(new Color(51,204,255));
+		combo.setBackground(Color.LIGHT_GRAY);
 		combo.setPreferredSize(new Dimension(160,25));
 		combo.setMinimumSize(new Dimension(160,25));
 		combo.setMaximumSize(new Dimension(160,25));
@@ -75,7 +78,7 @@ public class PanelBolest extends JPanel{
 		Main.panel.add(simptomiPanel);
 		
 		//bolest pacijenta--------------------------------------------------------------------------
-		JPanel bolestPanel = new JPanel();
+		bolestPanel = new JPanel();
 		bolestPanel.setBackground(Color.lightGray);
 		bolestPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		bolestPanel.setPreferredSize(new Dimension(300,70));
@@ -85,9 +88,9 @@ public class PanelBolest extends JPanel{
 		JLabel bol = new JLabel("  Bolest pacijenta:      ");
 		bol.setPreferredSize(new Dimension(95,10));
 		Main.bolTxt = new JTextField();
-		Main.bolTxt.setPreferredSize(new Dimension(130,25));
-		Main.bolTxt.setMinimumSize(new Dimension(130,25));
-		Main.bolTxt.setMaximumSize(new Dimension(130,25));
+		Main.bolTxt.setPreferredSize(new Dimension(160,25));
+		Main.bolTxt.setMinimumSize(new Dimension(160,25));
+		Main.bolTxt.setMaximumSize(new Dimension(160,25));
 		
 		bolestPanel.setLayout(new BoxLayout(bolestPanel, BoxLayout.X_AXIS));
 		bolestPanel.add(bol);
@@ -99,7 +102,7 @@ public class PanelBolest extends JPanel{
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 				
-				if(Main.simpTxt.getSelectedItem()=="" || Main.godTxt.getText().isEmpty()){
+				if(Main.simpTxt.getSelectedItem()=="" || Main.godTxt.getText().isEmpty() || Main.polTxt.getSelectedItem() == ""){
 					combo.setVisible(false);
 					Main.bolesti.clear();
 					Main.bolTxt.setText(null);

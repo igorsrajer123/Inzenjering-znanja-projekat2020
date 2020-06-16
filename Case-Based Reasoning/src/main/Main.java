@@ -16,6 +16,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import model.Pacijent;
+import ruleBasedReasoning.RbrPanel;
 
 public class Main {
 
@@ -24,7 +25,10 @@ public class Main {
 	public static ArrayList<String> procedure;
 	public static ArrayList<Pacijent> pacijenti;
 	public static ArrayList<String> simptomi;
+	public static ArrayList<String> simptomi2;
 	public static ArrayList<String> pol;
+	public static ArrayList<String> pol2;
+	
 	
 	public static JTextField bolTxt;
 	public static JTextField godTxt;
@@ -33,7 +37,13 @@ public class Main {
 	public static JComboBox simpTxt;
 	
 	@SuppressWarnings("rawtypes")
+	public static JComboBox simpTxt2;
+	
+	@SuppressWarnings("rawtypes")
 	public static JComboBox polTxt;
+	
+	@SuppressWarnings("rawtypes")
+	public static JComboBox polTxt2;
 	
 	public static JCheckBox pusac;
 	public static JCheckBox sportista;
@@ -43,6 +53,7 @@ public class Main {
 	public static JFrame frame;
 	
 	public static ViewPanel viewPanel;
+	public static RbrPanel rbrPanel;
 	
 	@SuppressWarnings("unused")
 	public static void DrawGui(){
@@ -86,6 +97,9 @@ public class Main {
 				//View Panel sa desne strane
 				viewPanel = new ViewPanel();
 				
+				//panel za rule based reasoning
+				rbrPanel = new RbrPanel();
+				
 				//Iscrtavanje frejma
 				frame.repaint();
 				frame.revalidate();
@@ -100,7 +114,9 @@ public class Main {
 		procedure = new ArrayList<String>();
 		pacijenti = new ArrayList<Pacijent>();
 		simptomi = new ArrayList<String>();
+		simptomi2 = new ArrayList<String>();
 		pol = new ArrayList<String>();
+		pol2 = new ArrayList<String>();
 		
 		simptomi.add("");
 		simptomi.add("Cough");
@@ -115,10 +131,27 @@ public class Main {
 		simptomi.add("Chest tightness");
 		simptomi.add("Fever");
 		
+		simptomi2.add("");
+		simptomi2.add("Cough");
+		simptomi2.add("Shortness of breath");
+		simptomi2.add("Sore throat");
+		simptomi2.add("Sharp chest pain");
+		simptomi2.add("Coryza");
+		simptomi2.add("Nasal congestion");
+		simptomi2.add("Difficulty breathing");
+		simptomi2.add("Coughing up sputum");
+		simptomi2.add("Headache");
+		simptomi2.add("Chest tightness");
+		simptomi2.add("Fever");
+		
 		pol.add("");
 		pol.add("Muški");
 		pol.add("Ženski");
 		
+		pol2.add("");
+		pol2.add("Muški");
+		pol2.add("Ženski");
+				
 		DrawGui();
 		
 		//citanje iz binarne datoteke u "pacijenti" listu

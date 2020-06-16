@@ -26,12 +26,13 @@ public class PanelProcedura extends JPanel{
 	
 	@SuppressWarnings("rawtypes")
 	public static JComboBox comboProcedura;
+	public static JPanel procedurePanel ;
 
 	@SuppressWarnings("rawtypes")
 	public PanelProcedura(){
 		
 		//preporucene procedure-------------------------------------------------------------------
-		JPanel procedurePanel = new JPanel();
+		procedurePanel = new JPanel();
 		procedurePanel.setBackground(Color.lightGray);
 		procedurePanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		procedurePanel.setMaximumSize(new Dimension(300,30));
@@ -40,13 +41,13 @@ public class PanelProcedura extends JPanel{
 		procedura.setPreferredSize(new Dimension(95,10));
 				
 		JButton btnProc = new JButton(">>");
-		btnProc.setBackground(new Color(51,204,255));
+		btnProc.setBackground(Color.LIGHT_GRAY);
 		btnProc.setPreferredSize(new Dimension(50,25));
 		btnProc.setMinimumSize(new Dimension(50,25));
 		btnProc.setMaximumSize(new Dimension(50,25));
 				
 		comboProcedura = new JComboBox();
-		comboProcedura.setBackground(new Color(51,204,255));
+		comboProcedura.setBackground(Color.LIGHT_GRAY);
 		comboProcedura.setPreferredSize(new Dimension(165,25));
 		comboProcedura.setMinimumSize(new Dimension(165,25));
 		comboProcedura.setMaximumSize(new Dimension(165,25));

@@ -26,12 +26,13 @@ public class PanelLek extends JPanel{
 
 	@SuppressWarnings("rawtypes")
 	public static JComboBox comboLek;
+	public static JPanel lekoviPanel;
 	
 	@SuppressWarnings("rawtypes")
 	public PanelLek(){
 		
 		//preporuceni lekovi-------------------------------------------------------------------
-		JPanel lekoviPanel = new JPanel();
+		lekoviPanel = new JPanel();
 		lekoviPanel.setBackground(Color.lightGray);
 		lekoviPanel.setBorder(BorderFactory.createLineBorder(Color.black));
 		lekoviPanel.setMaximumSize(new Dimension(300,30));
@@ -40,13 +41,13 @@ public class PanelLek extends JPanel{
 		lek.setPreferredSize(new Dimension(95,10));
 		
 		JButton btnLek = new JButton(">>");
-		btnLek.setBackground(new Color(51,204,255));
+		btnLek.setBackground(Color.LIGHT_GRAY);
 		btnLek.setPreferredSize(new Dimension(50,25));
 		btnLek.setMinimumSize(new Dimension(50,25));
 		btnLek.setMaximumSize(new Dimension(50,25));
 		
 		comboLek = new JComboBox();
-		comboLek.setBackground(new Color(51,204,255));
+		comboLek.setBackground(Color.LIGHT_GRAY);
 		comboLek.setPreferredSize(new Dimension(130,25));
 		comboLek.setMinimumSize(new Dimension(130,25));
 		comboLek.setMaximumSize(new Dimension(130,25));

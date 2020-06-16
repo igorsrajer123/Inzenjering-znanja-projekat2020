@@ -3,6 +3,7 @@ package main;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileOutputStream;
@@ -12,6 +13,7 @@ import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
@@ -20,6 +22,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import ruleBasedReasoning.RbrPanel;
 import model.Pacijent;
 
 public class ViewPanel extends JPanel{
@@ -38,7 +41,10 @@ public class ViewPanel extends JPanel{
 	public static DefaultTableModel model;
 	
 	public static Pacijent selectedPatient;
+	
+	public static JLabel labela1;
 
+	@SuppressWarnings("serial")
 	public ViewPanel(){
 		panelView = new JPanel();
 		
@@ -51,7 +57,13 @@ public class ViewPanel extends JPanel{
 		Main.frame.getContentPane().add(panelView, "East");
 		
 		//inicijalizacija tabele
-		model = new DefaultTableModel();
+		model = new DefaultTableModel(){
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
+
 		t = new JTable(model);
 		
 		model.addColumn("Ime");
@@ -96,8 +108,12 @@ public class ViewPanel extends JPanel{
 		
 		//postavljanje tabele u scrollPane da bi se lepo prikazala
 		scroll = new JScrollPane(t);
+		t.setBackground(Color.WHITE);
 		scroll.setPreferredSize(new Dimension(100,150));
 		panelView.add(scroll, BorderLayout.NORTH);
+		t.getTableHeader().setOpaque(false);
+		t.getTableHeader().setBackground(Color.LIGHT_GRAY);
+		scroll.getViewport().setBackground(Color.LIGHT_GRAY);
 		
 		//panel i dugmici za dodavanje i brisanje pacijenata
 		JPanel manipulacija = new JPanel();
@@ -112,17 +128,93 @@ public class ViewPanel extends JPanel{
 		dodaj.setPreferredSize(new Dimension(70,30));
 		dodaj.setMaximumSize(new Dimension(70,30));
 		dodaj.setMinimumSize(new Dimension(70,30));
+		dodaj.setBackground(Color.LIGHT_GRAY);
 		
 		//dugme za uklanjanje
 		JButton ukloni = new JButton("Ukloni");
 		ukloni.setPreferredSize(new Dimension(70,30));
 		ukloni.setMaximumSize(new Dimension(70,30));
 		ukloni.setMinimumSize(new Dimension(70,30));
+		ukloni.setBackground(Color.LIGHT_GRAY);
 		
 		manipulacija.add(Box.createHorizontalStrut(10));
 		manipulacija.add(dodaj);
 		manipulacija.add(Box.createHorizontalStrut(10));
 		manipulacija.add(ukloni);
+		
+		//panel zamene rezonovanja
+		JPanel zameniPanel = new JPanel();
+		zameniPanel.setPreferredSize(new Dimension(500,300));
+		zameniPanel.setMaximumSize(new Dimension(500,300));
+		zameniPanel.setMinimumSize(new Dimension(500,300));
+		zameniPanel.setLayout(new BoxLayout(zameniPanel, BoxLayout.X_AXIS));
+		zameniPanel.setBackground(Color.LIGHT_GRAY);
+		
+		labela1 = new JLabel("Odabrani metod rezonovanja: CBR");
+		labela1.setFont(new Font("Serif", Font.PLAIN, 20));
+		
+		//dugme za promenu metode rezonovanja
+		JButton zameni = new JButton("Zameni");
+		zameni.setPreferredSize(new Dimension(100,40));
+		zameni.setMaximumSize(new Dimension(100,40));
+		zameni.setMinimumSize(new Dimension(100,40));
+		zameni.setBackground(Color.LIGHT_GRAY);
+		
+		zameniPanel.add(Box.createHorizontalStrut(10));
+		zameniPanel.add(labela1);
+		zameniPanel.add(Box.createHorizontalStrut(10));
+		zameniPanel.add(zameni);
+		
+		panelView.add(zameniPanel, BorderLayout.WEST);
+	
+		zameni.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Auto-generated method stub
+				
+				if(PanelPodaci.imePanel.isVisible() && !RbrPanel.rbrPanel.isVisible()) {				
+					PanelPodaci.imePanel.setVisible(false);
+					PanelPodaci.godinePanel.setVisible(false);
+					PanelPodaci.podPanel.setVisible(false);
+					PanelLek.lekoviPanel.setVisible(false);
+					PanelBolest.simptomiPanel.setVisible(false);
+					PanelBolest.bolestPanel.setVisible(false);
+					PanelProcedura.procedurePanel.setVisible(false);
+					RbrPanel.rbrPanel.setVisible(true);
+					panelView.setBackground(new Color(204,153,255));
+					manipulacija.setBackground(new Color(204,153,255));
+					zameniPanel.setBackground(new Color(204,153,255));
+					t.setBackground(Color.WHITE);
+					t.getTableHeader().setBackground(new Color(204,153,255));
+					scroll.getViewport().setBackground(new Color(204,153,255));
+					dodaj.setBackground(new Color(204,153,255));
+					ukloni.setBackground(new Color(204,153,255));
+					zameni.setBackground(new Color(204,153,255));
+					labela1.setText("Odabrani metod rezonovanja: RBR");
+				}
+				else {
+					PanelPodaci.imePanel.setVisible(true);
+					PanelPodaci.godinePanel.setVisible(true);
+					PanelPodaci.podPanel.setVisible(true);
+					PanelLek.lekoviPanel.setVisible(true);
+					PanelBolest.simptomiPanel.setVisible(true);
+					PanelBolest.bolestPanel.setVisible(true);
+					PanelProcedura.procedurePanel.setVisible(true);
+					RbrPanel.rbrPanel.setVisible(false);
+					panelView.setBackground(Color.LIGHT_GRAY);
+					manipulacija.setBackground(Color.LIGHT_GRAY);
+					zameniPanel.setBackground(Color.LIGHT_GRAY);
+					t.setBackground(Color.WHITE);
+					t.getTableHeader().setBackground(Color.LIGHT_GRAY);
+					scroll.getViewport().setBackground(Color.LIGHT_GRAY);
+					dodaj.setBackground(Color.LIGHT_GRAY);
+					ukloni.setBackground(Color.LIGHT_GRAY);
+					zameni.setBackground(Color.LIGHT_GRAY);
+					labela1.setText("Odabrani metod rezonovanja: CBR");
+				}
+			}
+		});
 		
 		//akcija dodavanja
 		dodaj.addActionListener(new ActionListener() {
