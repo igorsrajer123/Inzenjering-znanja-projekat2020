@@ -99,11 +99,11 @@ public class PanelProcedura extends JPanel{
 						if(procedura.contains("x_ray_computed_tomography"))
 							procedura = "X-ray computed tomography";
 						
-						if(procedura.contains("electrocardiogram"))
-							procedura = "Electrocardiogram";
-						
 						if(procedura.contains("intravenous_fluid_replacement"))
 							procedura = "Intravenous fluid replacement";
+						
+						if(procedura.contains("complete_physical_skin_exam_performed"))
+							procedura = "Complete physical skin exam performed";
 						
 						if(!Main.procedure.contains(procedura)){
 							Main.procedure.add(procedura);

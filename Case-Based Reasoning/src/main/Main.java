@@ -22,12 +22,16 @@ public class Main {
 
 	public static ArrayList<String> bolesti;
 	public static ArrayList<String> lekovi;
+	public static ArrayList<String> lekovi2;
 	public static ArrayList<String> procedure;
+	public static ArrayList<String> procedure2;
 	public static ArrayList<Pacijent> pacijenti;
 	public static ArrayList<String> simptomi;
 	public static ArrayList<String> simptomi2;
 	public static ArrayList<String> pol;
 	public static ArrayList<String> pol2;
+	
+	public static ArrayList<String> bolesti2;
 	
 	
 	public static JTextField bolTxt;
@@ -47,6 +51,8 @@ public class Main {
 	
 	public static JCheckBox pusac;
 	public static JCheckBox sportista;
+	public static JCheckBox pusac2;
+	public static JCheckBox sportista2;
 	
 	public static PanelLek lekoviPanel;
 	public static JPanel panel;
@@ -117,6 +123,9 @@ public class Main {
 		simptomi2 = new ArrayList<String>();
 		pol = new ArrayList<String>();
 		pol2 = new ArrayList<String>();
+		bolesti2 = new ArrayList<String>();
+		lekovi2 = new ArrayList<String>();
+		procedure2 = new ArrayList<String>();
 		
 		simptomi.add("");
 		simptomi.add("Cough");

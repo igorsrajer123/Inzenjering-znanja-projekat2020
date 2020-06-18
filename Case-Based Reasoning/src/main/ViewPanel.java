@@ -216,137 +216,260 @@ public class ViewPanel extends JPanel{
 			}
 		});
 		
+		//--------------------------------------------------------------------------------------------------------------------------
 		//akcija dodavanja
 		dodaj.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
 			
-				if(PanelPodaci.imeTxt.getText().isEmpty() || PanelPodaci.przTxt.getText().isEmpty() ||
-					Main.godTxt.getText().isEmpty() || Main.bolTxt.getText().isEmpty() ||
-						Main.simpTxt.getSelectedItem()=="" || Main.polTxt.getSelectedItem() =="" ||!PanelProcedura.comboProcedura.isVisible() || !PanelLek.comboLek.isVisible()){
-
-						 JOptionPane.showMessageDialog(null, "Molimo Vas popunite odgovarajuća polja!");	
+				if(labela1.getText().contains("RBR")) {
+					if(RbrPanel.godTxt.getText().isEmpty() || RbrPanel.imeTxt.getText().isEmpty() || RbrPanel.przTxt.getText().isEmpty() ||
+								RbrPanel.combo.isVisible() == false || RbrPanel.comboLek.isVisible() == false ||
+								RbrPanel.comboProc.isVisible() == false || Main.simpTxt2.getSelectedItem() =="") {
+						JOptionPane.showMessageDialog(null, "Molimo Vas popunite odgovarajuća polja!");
+					}else {
+						
+						Pacijent p = new Pacijent();
+						p.setIme(RbrPanel.imeTxt.getText());
+						p.setPrz(RbrPanel.przTxt.getText());
+						p.setGod(Integer.parseInt(RbrPanel.godTxt.getText()));
+						p.setPol(Main.polTxt2.getSelectedItem().toString());
+						
+						if(Main.pusac2.isSelected())
+							p.setPusac("Da");
+						else if(!Main.pusac2.isSelected())
+							p.setPusac("Ne");
+						
+						if(Main.sportista2.isSelected())
+							p.setSportista("Da");
+						else if(!Main.sportista2.isSelected())
+							p.setSportista("Ne");
+						
+						p.setSimp(Main.simpTxt2.getSelectedItem().toString());
+						p.setBolest(RbrPanel.combo.getSelectedItem().toString());
+						p.setLek(RbrPanel.comboLek.getSelectedItem().toString());
+						p.setProcedura(RbrPanel.comboProc.getSelectedItem().toString());	
+						
+						Main.pacijenti.add(p);
+						
+						RbrPanel.imeTxt.setText("");
+						RbrPanel.przTxt.setText("");
+						RbrPanel.godTxt.setText("");
+						Main.simpTxt2.setSelectedItem(null);
+						RbrPanel.combo.setVisible(false);
+						RbrPanel.comboLek.setVisible(false);
+						RbrPanel.comboProc.setVisible(false);
+						Main.polTxt2.setSelectedItem(null);
+						Main.sportista2.setSelected(false);
+						Main.pusac2.setSelected(false);
+						
+						Main.bolesti2.clear();
+						Main.lekovi2.clear();
+						Main.procedure2.clear();
+						
+						//dodavanje reda u tabeli
+						String pacijent = p.toString();
+						Object[] rowData = new Object[10];
+						
+						String[] pParts = pacijent.split(",");
+						
+						String imeP = pParts[0];
+						String[] ime1 = imeP.split("=");
+						String ime = ime1[1];
+						
+						String przP = pParts[1];
+						String[] prz1 = przP.split("=");
+						String prz = prz1[1];
+						
+						String godP = pParts[2];
+						String[] god1 = godP.split("=");
+						String god = god1[1];
+						
+						String simP = pParts[3];
+						String[] sim1 = simP.split("=");
+						String sim = sim1[1];
+						
+						String bolP = pParts[4];
+						String[] bol1 = bolP.split("=");
+						String bol = bol1[1];
+						
+						String lekP = pParts[5];
+						String[] lek1 = lekP.split("=");
+						String lek = lek1[1];
+						
+						String proP = pParts[6];
+						String[] pro1 = proP.split("=");
+						String pro = pro1[1];
+						//String pro2 = pro.replace("]","");
+						
+						String pol = pParts[7];
+						String[] pol1 = pol.split("=");
+						String praviPol = pol1[1];
+						
+						String pusac = pParts[8];
+						String[] pus1 = pusac.split("=");
+						String praviPusac = pus1[1];
+						
+						String sport = pParts[9];
+						String[] sp1 = sport.split("=");
+						String sportista = sp1[1];
+						String praviSportista = sportista.replace("]", "");
+						
+						rowData[0] = ime;
+						rowData[1] = prz;
+						rowData[2] = god;
+						rowData[3] = praviPol;
+						rowData[4] = praviPusac;
+						rowData[5] = praviSportista;
+						rowData[6] = sim;					
+						rowData[7] = bol;
+						rowData[8] = lek;
+						rowData[9] = pro;
+						
+						model.addRow(rowData);
+						
+						panelView.revalidate();
+						panelView.repaint();
+						
+						 try {
+						      FileOutputStream out = new FileOutputStream("pacijent2.out");
+						      ObjectOutputStream oos = new ObjectOutputStream(out);
+						      oos.writeObject(Main.pacijenti);
+						      oos.flush();
+						      oos.close();
+						    } catch (Exception e) {
+						      System.out.println("Problem serializing: " + e);
+						    }					
+					}
+				}else if(labela1.getText().contains("CBR")){
+					if(PanelPodaci.imeTxt.getText().isEmpty() || PanelPodaci.przTxt.getText().isEmpty() ||
+						Main.godTxt.getText().isEmpty() || Main.bolTxt.getText().isEmpty() ||
+							Main.simpTxt.getSelectedItem()=="" || Main.polTxt.getSelectedItem() =="" 
+									|| !PanelProcedura.comboProcedura.isVisible() || !PanelLek.comboLek.isVisible()){
+	
+							 JOptionPane.showMessageDialog(null, "Molimo Vas popunite odgovarajuća polja!");	
+					}
+					else {
+						
+						Pacijent p = new Pacijent();
+						p.setIme(PanelPodaci.imeTxt.getText());
+						p.setPrz(PanelPodaci.przTxt.getText());
+						p.setGod(Integer.parseInt(Main.godTxt.getText()));
+						p.setPol(Main.polTxt.getSelectedItem().toString());
+						
+						if(Main.pusac.isSelected())
+							p.setPusac("Da");
+						else if(!Main.pusac.isSelected())
+							p.setPusac("Ne");
+						
+						if(Main.sportista.isSelected())
+							p.setSportista("Da");
+						else if(!Main.sportista.isSelected())
+							p.setSportista("Ne");
+						
+						p.setSimp(Main.simpTxt.getSelectedItem().toString());
+						p.setBolest(Main.bolTxt.getText());
+						p.setLek(PanelLek.comboLek.getSelectedItem().toString());
+						p.setProcedura(PanelProcedura.comboProcedura.getSelectedItem().toString());	
+															
+						Main.pacijenti.add(p);
+						
+						PanelPodaci.imeTxt.setText("");
+						PanelPodaci.przTxt.setText("");
+						Main.godTxt.setText("");
+						Main.simpTxt.setSelectedItem(null);
+						Main.bolTxt.setText("");
+						PanelBolest.combo.setVisible(false);
+						PanelLek.comboLek.setVisible(false);
+						PanelProcedura.comboProcedura.setVisible(false);
+						Main.polTxt.setSelectedItem(null);
+						Main.sportista.setSelected(false);
+						Main.pusac.setSelected(false);
+						
+						Main.bolesti.clear();
+						Main.lekovi.clear();
+						Main.procedure.clear();
+						
+						//dodavanje reda u tabeli
+						String pacijent = p.toString();
+						Object[] rowData = new Object[10];
+						
+						String[] pParts = pacijent.split(",");
+						
+						String imeP = pParts[0];
+						String[] ime1 = imeP.split("=");
+						String ime = ime1[1];
+						
+						String przP = pParts[1];
+						String[] prz1 = przP.split("=");
+						String prz = prz1[1];
+						
+						String godP = pParts[2];
+						String[] god1 = godP.split("=");
+						String god = god1[1];
+						
+						String simP = pParts[3];
+						String[] sim1 = simP.split("=");
+						String sim = sim1[1];
+						
+						String bolP = pParts[4];
+						String[] bol1 = bolP.split("=");
+						String bol = bol1[1];
+						
+						String lekP = pParts[5];
+						String[] lek1 = lekP.split("=");
+						String lek = lek1[1];
+						
+						String proP = pParts[6];
+						String[] pro1 = proP.split("=");
+						String pro = pro1[1];
+						//String pro2 = pro.replace("]","");
+						
+						String pol = pParts[7];
+						String[] pol1 = pol.split("=");
+						String praviPol = pol1[1];
+						
+						String pusac = pParts[8];
+						String[] pus1 = pusac.split("=");
+						String praviPusac = pus1[1];
+						
+						String sport = pParts[9];
+						String[] sp1 = sport.split("=");
+						String sportista = sp1[1];
+						String praviSportista = sportista.replace("]", "");
+						
+						rowData[0] = ime;
+						rowData[1] = prz;
+						rowData[2] = god;
+						rowData[3] = praviPol;
+						rowData[4] = praviPusac;
+						rowData[5] = praviSportista;
+						rowData[6] = sim;					
+						rowData[7] = bol;
+						rowData[8] = lek;
+						rowData[9] = pro;
+						
+						model.addRow(rowData);
+						
+						panelView.revalidate();
+						panelView.repaint();
+						
+						 try {
+						      FileOutputStream out = new FileOutputStream("pacijent2.out");
+						      ObjectOutputStream oos = new ObjectOutputStream(out);
+						      oos.writeObject(Main.pacijenti);
+						      oos.flush();
+						      oos.close();
+						    } catch (Exception e) {
+						      System.out.println("Problem serializing: " + e);
+						    }
+					}	
 				}
-				else {
-					
-					Pacijent p = new Pacijent();
-					p.setIme(PanelPodaci.imeTxt.getText());
-					p.setPrz(PanelPodaci.przTxt.getText());
-					p.setGod(Integer.parseInt(Main.godTxt.getText()));
-					p.setPol(Main.polTxt.getSelectedItem().toString());
-					
-					if(Main.pusac.isSelected())
-						p.setPusac("Da");
-					else if(!Main.pusac.isSelected())
-						p.setPusac("Ne");
-					
-					if(Main.sportista.isSelected())
-						p.setSportista("Da");
-					else if(!Main.sportista.isSelected())
-						p.setSportista("Ne");
-					
-					p.setSimp(Main.simpTxt.getSelectedItem().toString());
-					p.setBolest(Main.bolTxt.getText());
-					p.setLek(PanelLek.comboLek.getSelectedItem().toString());
-					p.setProcedura(PanelProcedura.comboProcedura.getSelectedItem().toString());	
-				
-									
-					Main.pacijenti.add(p);
-					
-					PanelPodaci.imeTxt.setText("");
-					PanelPodaci.przTxt.setText("");
-					Main.godTxt.setText("");
-					Main.simpTxt.setSelectedItem(null);
-					Main.bolTxt.setText("");
-					PanelBolest.combo.setVisible(false);
-					PanelLek.comboLek.setVisible(false);
-					PanelProcedura.comboProcedura.setVisible(false);
-					Main.polTxt.setSelectedItem(null);
-					Main.sportista.setSelected(false);
-					Main.pusac.setSelected(false);
-					
-					Main.bolesti.clear();
-					Main.lekovi.clear();
-					Main.procedure.clear();
-					
-					//dodavanje reda u tabeli
-					String pacijent = p.toString();
-					Object[] rowData = new Object[10];
-					
-					String[] pParts = pacijent.split(",");
-					
-					String imeP = pParts[0];
-					String[] ime1 = imeP.split("=");
-					String ime = ime1[1];
-					
-					String przP = pParts[1];
-					String[] prz1 = przP.split("=");
-					String prz = prz1[1];
-					
-					String godP = pParts[2];
-					String[] god1 = godP.split("=");
-					String god = god1[1];
-					
-					String simP = pParts[3];
-					String[] sim1 = simP.split("=");
-					String sim = sim1[1];
-					
-					String bolP = pParts[4];
-					String[] bol1 = bolP.split("=");
-					String bol = bol1[1];
-					
-					String lekP = pParts[5];
-					String[] lek1 = lekP.split("=");
-					String lek = lek1[1];
-					
-					String proP = pParts[6];
-					String[] pro1 = proP.split("=");
-					String pro = pro1[1];
-					//String pro2 = pro.replace("]","");
-					
-					String pol = pParts[7];
-					String[] pol1 = pol.split("=");
-					String praviPol = pol1[1];
-					
-					String pusac = pParts[8];
-					String[] pus1 = pusac.split("=");
-					String praviPusac = pus1[1];
-					
-					String sport = pParts[9];
-					String[] sp1 = sport.split("=");
-					String sportista = sp1[1];
-					String praviSportista = sportista.replace("]", "");
-					
-					rowData[0] = ime;
-					rowData[1] = prz;
-					rowData[2] = god;
-					rowData[3] = praviPol;
-					rowData[4] = praviPusac;
-					rowData[5] = praviSportista;
-					rowData[6] = sim;					
-					rowData[7] = bol;
-					rowData[8] = lek;
-					rowData[9] = pro;
-					
-					model.addRow(rowData);
-					
-					panelView.revalidate();
-					panelView.repaint();
-					
-					 try {
-					      FileOutputStream out = new FileOutputStream("pacijent2.out");
-					      ObjectOutputStream oos = new ObjectOutputStream(out);
-					      oos.writeObject(Main.pacijenti);
-					      oos.flush();
-					      oos.close();
-					    } catch (Exception e) {
-					      System.out.println("Problem serializing: " + e);
-					    }
-				}	
 			}
 		});
 		
+		//---------------------------------------------------------------------------------------------------------------
 		//akcija selektovanja reda u tabeli
 		t.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 			
@@ -381,6 +504,7 @@ public class ViewPanel extends JPanel{
 			}
 		});
 		
+		//------------------------------------------------------------------------------------------------------------------
 		//akcija uklanjanja selektovanog pacijenta i serijalizacija liste
 		ukloni.addActionListener(new ActionListener() {
 			

@@ -15,8 +15,6 @@ medication(pneumonia,moxifloxacin,80).
 medication(pneumonia,zosyn,66).
 medication(pneumonia,robitussin_ac,43).
 medication(pneumonia,cefepime,39).
-medication(pneumonia,ceftazidime, 22).
-medication(pneumonia,piperacillin,7).
 
 %chronic obstructive pulmonary disease
 medication(chronic_obstructive_pulmonary_disease,azithromycin,100).
@@ -25,7 +23,6 @@ medication(chronic_obstructive_pulmonary_disease,tiotropium,78).
 medication(chronic_obstructive_pulmonary_disease,guaifenesin,71).
 medication(chronic_obstructive_pulmonary_disease,levalbuterol,67).
 medication(chronic_obstructive_pulmonary_disease,clarithromycin,41).
-medication(chronic_obstructive_pulmonary_disease,theophylline,14).
 
 %acute bronchitis
 medication(acute_bronchitis,azithromycin,100).
@@ -42,9 +39,6 @@ medication(pulmonary_hypertension,carvedilol,63).
 medication(pulmonary_hypertension,sildenafil,57). 
 medication(pulmonary_hypertension,spironolactone,55).
 medication(pulmonary_hypertension,digoxin,38).
-medication(pulmonary_hypertension,bosentan,34).
-medication(pulmonary_hypertension,bumetanide,17).
-medication(pulmonary_hypertension,oxygen,10).
 
 %pulmonary fibrosis
 medication(pulmonary_fibrosis,prednisone,100).
@@ -53,12 +47,11 @@ medication(pulmonary_fibrosis,oxygen,58).
 medication(pulmonary_fibrosis,acetylcysteine,44).
 medication(pulmonary_fibrosis,raloxifene,43).
 medication(pulmonary_fibrosis,azathioprine,36).
-medication(pulmonary_fibrosis,bosentan,12).
-medication(pulmonary_fibrosis,darifenacin,9).
 
 %abscess of the lung
 medication(abscess_of_the_lung,insulin,100).
 medication(abscess_of_the_lung,metformin,99).
+medication(abscess_of_the_lung,acetylcysteine,30).
 medication(abscess_of_the_lung,meropenem,13).
 medication(abscess_of_the_lung,vancomycin,11).
 medication(abscess_of_the_lung,budesonide,8).
@@ -69,6 +62,7 @@ medication(emphysema,diphenhydramin,71).
 medication(emphysema,hydromorphone,69).
 medication(emphysema,sucralfate,9).
 medication(emphysema,nicotine,8).
+medication(emphysema,meropenem,8).
 
 %sarcoidosis
 medication(sarcoidosis,prednisone,100).
@@ -82,6 +76,7 @@ medication(sarcoidosis,ursodiol,19).
 medication(pulmonary_embolism,warfarin,100).
 medication(pulmonary_embolism,enoxaparin,88).
 medication(pulmonary_embolism,heparin,86).
+medication(pulmonary_embolism,hydromorphone,51).
 medication(pulmonary_embolism,dalteparin,37).
 medication(pulmonary_embolism,beclomethasone,36).
 
@@ -101,7 +96,6 @@ symptom_diagnose(cough,acute_bronchitis,2).
 
 %shortness of breath
 symptom_diagnose(shortness_of_breath,pulmonary_hypertension,16).
-symptom_diagnose(shortness_of_breath,emphysema, 15).
 symptom_diagnose(shortness_of_breath,pulmonary_embolism,15).
 symptom_diagnose(shortness_of_breath,chronic_obstructive_pulmonary_disease,15).
 symptom_diagnose(shortness_of_breath,pulmonary_fibrosis,13).
@@ -189,9 +183,9 @@ symptom_diagnose(coryza,asthma,7).
 symptom_diagnose(coryza,acute_bronchitis,6).
 symptom_diagnose(coryza,pneumonia,3).
 symptom_diagnose(coryza,chronic_obstructive_pulmonary_disease,2).
-symptom_diagnose(sore_throat,pulmonary_hypertension,0).
-symptom_diagnose(sore_throat,abscess_of_the_lung,0).
-symptom_diagnose(sore_throat,pulmonary_fibrosis,0).
+symptom_diagnose(coryza,pulmonary_hypertension,0).
+symptom_diagnose(coryza,abscess_of_the_lung,0).
+symptom_diagnose(coryza,pulmonary_fibrosis,0).
 symptom_diagnose(coryza,pulmonary_embolism,0).
 symptom_diagnose(coryza,sarcoidosis,0).
 symptom_diagnose(coryza,emphysema,0).
@@ -227,6 +221,7 @@ disease_procedure(asthma,plain_x_ray,100).
 disease_procedure(asthma,nebulizer_therapy,94).
 disease_procedure(asthma,arterial_blood_gases,46).
 disease_procedure(asthma,influenzavirus_antibody_assay,31).
+disease_procedure(asthma,electrolytes_panel,11).
 
 %pneumonia
 disease_procedure(pneumonia,radiographic_imaging_procedure,100).
@@ -234,8 +229,6 @@ disease_procedure(pneumonia,plain_x_ray,94).
 disease_procedure(pneumonia,hematologic_tests,79).
 disease_procedure(pneumonia,complete_blood_count,72).
 disease_procedure(pneumonia,intravenous_fluid_replacement,32).
-disease_procedure(pneumonia,kidney_function_tests,21).
-disease_procedure(pneumonia,electrolytes_panel,11).
 
 %chronic obstructive pulmonary disease
 disease_procedure(chronic_obstructive_pulmonary_disease,radiographic_imaging_procedure,100).
@@ -243,8 +236,6 @@ disease_procedure(chronic_obstructive_pulmonary_disease,plain_x_ray,93).
 disease_procedure(chronic_obstructive_pulmonary_disease,hematologic_tests,90).
 disease_procedure(chronic_obstructive_pulmonary_disease,complete_blood_count,67).
 disease_procedure(chronic_obstructive_pulmonary_disease,glucose_measurement,22).
-disease_procedure(chronic_obstructive_pulmonary_disease,kidney_function_tests,15).
-disease_procedure(chronic_obstructive_pulmonary_disease,electrolytes_panel,14).
 
 %acute bronchitis
 disease_procedure(acute_bronchitis,radiographic_imaging_procedure,100).
@@ -252,8 +243,6 @@ disease_procedure(acute_bronchitis,plain_x_ray,98).
 disease_procedure(acute_bronchitis,nebulizer_therapy,61).
 disease_procedure(acute_bronchitis,kidney_function_tests,57).
 disease_procedure(acute_bronchitis,cardiac_enzymes_measurement,41).
-disease_procedure(acute_bronchitis,cardiac_monitoring,23).
-disease_procedure(acute_bronchitis,blood_culture,8).
 
 %pulmonary hypertension
 disease_procedure(pulmonary_hypertension,radiographic_imaging_procedure,100).
@@ -261,7 +250,6 @@ disease_procedure(pulmonary_hypertension,hematologic_tests,98).
 disease_procedure(pulmonary_hypertension,electrocardiogram,77).
 disease_procedure(pulmonary_hypertension,ultrasonography,73).
 disease_procedure(pulmonary_hypertension,echocardiography,68).
-disease_procedure(pulmonary_hypertension,cardiac_enzymes_measurement,33).
 
 %pulmonary fibrosis
 disease_procedure(pulmonary_fibrosis,hematologic_tests,100).
@@ -269,7 +257,6 @@ disease_procedure(pulmonary_fibrosis,complete_blood_count,92).
 disease_procedure(pulmonary_fibrosis,electrocardiogram,77).
 disease_procedure(pulmonary_fibrosis,radiographic_imaging_procedure,71).
 disease_procedure(pulmonary_fibrosis,kidney_function_tests,17).
-disease_procedure(pulmonary_fibrosis,glucose_measurement,15).
 
 %abscess of the lung
 disease_procedure(abscess_of_the_lung,radiographic_imaging_procedure,100).
@@ -309,6 +296,9 @@ medications_sorted(B,L) :- findall([V,A],medication(B,A,V),L1),sort(L1,L).
 
 %lista procedura za unetu bolest
 procedure_for_disease(B,L) :- findall(P, disease_procedure(B,P,V),L).
+
+%lista procedura za unetu bolest po verovatnoci
+procedure_sorted(B,L) :- findall([V,P], disease_procedure(B,P,V),L1),sort(L1,L).
 
 %lista bolesti kod kojih uneti lek pomaze
 lek_pomaze_za(M,L) :- findall(B,medication(B,M,V),L).
